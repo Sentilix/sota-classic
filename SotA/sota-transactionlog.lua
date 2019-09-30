@@ -520,7 +520,6 @@ end
 --	Initalize Transaction Log UI elements
 --]]
 function SOTA_TransactionLogUIInit()
-echo("***CLASSIC***: BEFORE, 1");
 	for n=0,SOTA_MAX_TRANSACTIONS_DISPLAYED, 1 do
 		local lgEntry = CreateFrame("Button", "$parentEntry"..n, TransactionUIFrameTableList, "SOTA_LogTemplate");
 		local dhEntry = CreateFrame("Button", "$parentEntry"..n, TransactionUIFrameDKPHistory, "SOTA_DKPTemplate");
@@ -535,7 +534,6 @@ echo("***CLASSIC***: BEFORE, 1");
 		end	
 	end
 	
-echo("***CLASSIC***: BEFORE, 2");
 	--	Initialize Player buttons in TransactionDetails
 	local id = 1;
 	for row=1, TRANSACTION_DETAILS_ROWS, 1 do

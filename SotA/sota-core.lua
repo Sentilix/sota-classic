@@ -1076,13 +1076,11 @@ function SOTA_ShareBossDKP()
 			whileDead = true,
 			hideOnEscape = true,
 			preferredIndex = 3,			
-			OnShow = function()	
-				local c = _G[self:GetName().."EditBox"];
-				c:SetText(bossDkp);
+			OnShow = function(self, data)	
+				self.editBox:SetText(bossDkp)
 			end,
 			OnAccept = function(self, data)
-				local c = _G[self:GetParent():GetName().."EditBox"];
-				SOTA_ShareSelectedBossDKP(c:GetText());
+				SOTA_ShareSelectedBossDKP(self.editBox:GetText());
 			end			
 		}
 		StaticPopup_Show("SOTA_POPUP_SHARE_DKP");		
