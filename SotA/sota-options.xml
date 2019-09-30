@@ -1,0 +1,1524 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Script file="sota-options.lua" />
+
+	<!-- Configuration frame template -->
+	<!-- Frame name="SOTA_ConfigurationFrameTemplate" parent="UIParent" toplevel="true" hidden="true" virtual="true" -->
+	<Frame name="SOTA_ConfigurationFrameTemplate" parent="UIParent" toplevel="true" hidden="true" virtual="true">
+		<Size>
+			<AbsDimension x="384" y="512" />
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset x="312" y="-124" />
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\Spellbook\Spellbook-Icon">
+					<Size>
+						<AbsDimension x="58" y="58"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="10" y="-8"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<Texture name="BarTopLeft" file="Interface\Spellbook\UI-SpellbookPanel-TopLeft">
+					<Size>
+						<AbsDimension x="256" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT"/>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\Spellbook\UI-SpellbookPanel-TopRight">
+					<Size>
+						<AbsDimension x="128" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT"/>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\Spellbook\UI-SpellbookPanel-BotLeft">
+					<Size>
+						<AbsDimension x="256" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT"/>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\Spellbook\UI-SpellbookPanel-BotRight">
+					<Size>
+						<AbsDimension x="128" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT"/>
+					</Anchors>
+				</Texture>
+				<FontString name="$parentTitle" inherits="GameFontNormal" text="SotA Options">
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="-6" y="233"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer>
+				<FontString name="$parentTopText" inherits="GameFontNormal" font="Fonts\FRIZQT__.TTF" text="">
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="-90"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<FontHeight val="16" />
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<!-- Top right corner close button -->
+			<Button name="$parentTopCloseButton" inherits="UIPanelCloseButton">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="324" y="-9" />
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SOTA_CloseConfigurationUI();
+					</OnClick>
+				</Scripts>
+			</Button>
+			<!-- Lower close button -->
+			<Button name="$parentCloseButton" inherits="UIPanelButtonTemplate" text="Close">
+				<Size>
+					<AbsDimension x="100" y="23" />
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="134" y="-402" />
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SOTA_CloseConfigurationUI();
+					</OnClick>
+				</Scripts>
+			</Button>
+			<!-- Line 1, button 1: Bidding config button -->
+			<Button name="$parentConfigTabButton1" inherits="UIPanelButtonTemplate" text="Bidding">
+				<Size>
+					<AbsDimension x="80" y="20" />
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="80" y="-35" />
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SOTA_OpenBiddingConfig();
+					</OnClick>
+				</Scripts>
+			</Button>
+			<!-- Line 1, button 2: Boss DKP config button -->
+			<Button name="$parentConfigTabButton2" inherits="UIPanelButtonTemplate" text="Boss DKP">
+				<Size>
+					<AbsDimension x="80" y="23" />
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentConfigTabButton1" relativePoint="LEFT">
+						<Offset x="84" y="0" />
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SOTA_OpenBossDkpConfig();
+					</OnClick>
+				</Scripts>
+			</Button>
+			<!-- Line 1, button 3: Misc DKP config button -->
+			<Button name="$parentConfigTabButton2" inherits="UIPanelButtonTemplate" text="Misc DKP">
+				<Size>
+					<AbsDimension x="80" y="23" />
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentConfigTabButton2" relativePoint="LEFT">
+						<Offset x="84" y="0" />
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SOTA_OpenMiscDkpConfig();
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<!-- Line 2, button 1: Messages config button -->
+			<Button name="$parentConfigTabButton4" inherits="UIPanelButtonTemplate" text="Messages">
+				<Size>
+					<AbsDimension x="80" y="20" />
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="80" y="-54" />
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SOTA_OpenMessageConfig();
+					</OnClick>
+				</Scripts>
+			</Button>
+			<!-- Line 2, button 2: Bid Rules config button -->
+			<Button name="$parentConfigTabButton5" inherits="UIPanelButtonTemplate" text="Bid Rules" hidden="true">
+				<Size>
+					<AbsDimension x="80" y="23" />
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentConfigTabButton4" relativePoint="LEFT">
+						<Offset x="84" y="0" />
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SOTA_OpenBidRulesConfig();
+					</OnClick>
+				</Scripts>
+			</Button>
+			<!-- Line 2, button 3: Sync Cfg config button -->
+			<Button name="$parentConfigTabButton6" inherits="UIPanelButtonTemplate" text="Sync Cfg" hidden="true">
+				<Size>
+					<AbsDimension x="80" y="23" />
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentConfigTabButton5" relativePoint="LEFT">
+						<Offset x="84" y="0" />
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SOTA_OpenSyncCfgConfig();
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<!-- Dummy input field to claim frame focus -->
+			<EditBox name="$parentDummy" letters="1" visible="false">
+				<Size>
+					<AbsDimension x="0" y="0"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="-200" y="-200"/>
+					</Anchor>
+				</Anchors>
+				<FontString inherits="GameFontNormal"/>
+				<Scripts>
+					<OnLoad>
+						--self:RegisterEvent("OnEscapePressed")
+						self:SetScript("OnEscapePressed", function(self) self:ClearFocus(); SOTA_CloseConfigurationUI(); end);
+					</OnLoad>
+					<!--<OnEscapePressed>
+						SOTA_CloseConfigurationUI();
+					</OnEscapePressed>-->
+				</Scripts>
+			</EditBox>
+		</Frames>
+
+		<Scripts>
+			<OnLoad>
+				self:SetMovable(true)
+				self:SetUserPlaced(false)
+				self:RegisterForDrag("LeftButton")
+			</OnLoad>
+			<OnDragStart>
+				self:StartMoving()
+			</OnDragStart>
+			<OnDragStop>
+				self:StopMovingOrSizing()
+				SOTA_UpdateFramePos(self);
+			</OnDragStop>
+		</Scripts>
+	</Frame>
+
+	<!-- Boss DKP slider (config element for Boss DKP)  -->
+	<Slider name="SOTA_BossDKPSlider" minValue="0" maxValue="4000" defaultValue="400" valueStep="100" inherits="OptionsSliderTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="300" y="14" />
+		</Size>
+		<Scripts>
+			<OnLoad>
+				_G[self:GetName().."Low"]:SetText("0")
+				_G[self:GetName().."High"]:SetText("4000")
+			</OnLoad>
+			<OnValueChanged>
+				SOTA_OnOptionBossDKPChanged(self);
+			</OnValueChanged>
+		</Scripts>
+	</Slider>
+
+	<!-- Template for Message list entries -->
+	<Button name="SOTA_TextTemplate" hidden="true" virtual="true">
+		<Size>
+			<AbsDimension x="278" y="16"/>
+		</Size>
+		<Layers>
+			<Layer>
+				<!-- TODO: Insert Channel selector -->
+				<FontString name="$parentEvent" justifyH="LEFT" inherits="GameFontNormal" hidden="true">
+					<Size>
+						<AbsDimension x="0" y="0"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentChannel" justifyH="LEFT" inherits="GameFontNormal" hidden="true">
+					<Size>
+						<AbsDimension x="0" y="0"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentMessage" justifyH="LEFT" inherits="GameFontNormal">
+					<Size>
+						<AbsDimension x="274" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="4" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnClick>
+				SOTA_OnEventMessageClick(self)
+				PlaySound("igMainMenuOptionCheckBoxOn")
+			</OnClick>
+			<OnEnter>
+				_G[self:GetName().."BG"]:SetVertexColor(1, 1, 1, 1)
+			</OnEnter>
+			<OnLeave>
+				_G[self:GetName().."BG"]:SetVertexColor(0.4, 0.4, 0.4, 0.7)
+			</OnLeave>
+			<OnLoad>
+				self:GetScript("OnLeave")(self)
+			</OnLoad>
+		</Scripts>
+		<NormalTexture name="$parentBG">
+			<Color r="0.0" g="0.0" b="0.5" a="0.5"/>
+		</NormalTexture>
+	</Button>
+
+
+	<!-- Configuration Frame 1.1: Bidding options -->
+	<!-- Auction Timer, nominal time -->
+	<Frame name="FrameConfigBidding" parent="UIParent" toplevel="true" hidden="true" inherits="SOTA_ConfigurationFrameTemplate">
+		<Frames>
+			<Slider name="$parentAuctionTime" minValue="0" maxValue="60" defaultValue="25" valueStep="1" inherits="OptionsSliderTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="64" y="-124"/>
+					</Anchor>
+				</Anchors>
+				<Size>
+					<AbsDimension x="250" y="14" />
+				</Size>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Low"]:SetText("0")
+						_G[self:GetName().."High"]:SetText("60")
+					</OnLoad>
+					<OnValueChanged>
+						SOTA_OnOptionAuctionTimeChanged(self);
+					</OnValueChanged>
+				</Scripts>
+			</Slider>
+			<!-- Auction Extension time -->
+			<Slider name="$parentAuctionExtension" minValue="0" maxValue="20" defaultValue="8" valueStep="1" inherits="OptionsSliderTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="64" y="-156"/>
+					</Anchor>
+				</Anchors>
+				<Size>
+					<AbsDimension x="250" y="14" />
+				</Size>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Low"]:SetText("0")
+						_G[self:GetName().."High"]:SetText("60")
+					</OnLoad>
+					<OnValueChanged>
+						SOTA_OnOptionAuctionExtensionChanged(self);
+					</OnValueChanged>
+				</Scripts>
+			</Slider>
+			<!-- Enable MS/OS bidding (MS>OS) ? -->
+			<CheckButton name="$parentMSoverOSPriority" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="32" y="-198"/>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText("Enable MS/OS bidding (Mainspec over Offspec)")
+					</OnLoad>
+					<OnClick>
+						SOTA_HandleCheckbox(self);
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			<!-- Enable Zone Check for Raid Queue -->
+			<CheckButton name="$parentEnableZonecheck" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="32" y="-224"/>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText("Enable Raid Queue Zone Check")
+					</OnLoad>
+					<OnClick>
+						SOTA_HandleCheckbox(self);
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			<!-- Enable Online Check -->
+			<CheckButton name="$parentEnableOnlinecheck" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="32" y="-250"/>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText("Enable Raid Queue Online Check")
+					</OnLoad>
+					<OnClick>
+						SOTA_HandleCheckbox(self);
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			<!-- Allow players to Pass ? -->
+			<CheckButton name="$parentAllowPlayerPass" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="32" y="-276"/>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText("Allow players to pass")
+					</OnLoad>
+					<OnClick>
+						SOTA_HandleCheckbox(self);
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			<!-- Disable Dashboard ? -->
+			<CheckButton name="$parentDisableDashboard" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="32" y="-302"/>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText("Disable (hide) Dashboard")
+					</OnLoad>
+					<OnClick>
+						SOTA_HandleCheckbox(self);
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+		</Frames>
+	</Frame>
+	
+	<!-- Configuration Frame 1.2: Boss DKP options -->
+	<!-- 20 mans (ZG, AQ20) -->
+	<Frame name="FrameConfigBossDkp" parent="UIParent" inherits="SOTA_ConfigurationFrameTemplate">
+		<Frames>
+			<Slider name="$parent_20Mans" inherits="SOTA_BossDKPSlider">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="28" y="-124"/>
+					</Anchor>
+				</Anchors>
+			</Slider>
+			<!-- Molten Core -->
+			<Slider name="$parent_MoltenCore" inherits="SOTA_BossDKPSlider">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="28" y="-156"/>
+					</Anchor>
+				</Anchors>
+			</Slider>
+			<!-- Onyxia -->
+			<Slider name="$parent_Onyxia" inherits="SOTA_BossDKPSlider">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="28" y="-188"/>
+					</Anchor>
+				</Anchors>
+			</Slider>
+			<!-- Blackwing Lair -->
+			<Slider name="$parent_BlackwingLair" inherits="SOTA_BossDKPSlider">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="28" y="-220"/>
+					</Anchor>
+				</Anchors>
+			</Slider>
+			<!-- AQ40 -->
+			<Slider name="$parent_AQ40" inherits="SOTA_BossDKPSlider">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="28" y="-252"/>
+					</Anchor>
+				</Anchors>
+			</Slider>
+			<!-- Naxxramas -->
+			<Slider name="$parent_Naxxramas" inherits="SOTA_BossDKPSlider">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="28" y="-284"/>
+					</Anchor>
+				</Anchors>
+			</Slider>
+			<!-- World Bosses -->
+			<Slider name="$parent_WorldBosses" inherits="SOTA_BossDKPSlider">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="28" y="-316"/>
+					</Anchor>
+				</Anchors>
+			</Slider>
+		</Frames>
+	</Frame>
+	
+	<!-- Configuration Frame 1.3: Misc. DKP -->
+	<!-- Public Guild Notes, options: 0, 1 -->
+	<Frame name="FrameConfigMiscDkp" parent="UIParent" inherits="SOTA_ConfigurationFrameTemplate">
+		<Frames>
+			<CheckButton name="$parentPublicNotes" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="32" y="-110"/>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText("Store DKP in Public Guild Notes")
+					</OnLoad>
+					<OnClick>
+						SOTA_HandleCheckbox(self);
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			<!-- Minimum Mid Strategy, options: 0, 1, 2, 3 -->
+			<CheckButton name="$parentMinBidStrategy0" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="32" y="-154"/>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText("No minimum bid rules")
+					</OnLoad>
+					<OnClick>
+						SOTA_HandleCheckbox(self);
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentMinBidStrategy1" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="32" y="-176"/>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText("Minimum increase by 10 DKP")
+					</OnLoad>
+					<OnClick>
+						SOTA_HandleCheckbox(self);
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentMinBidStrategy2" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="32" y="-198"/>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText("Minimum increase by 10%")
+					</OnLoad>
+					<OnClick>
+						SOTA_HandleCheckbox(self);
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentMinBidStrategy3" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="32" y="-220"/>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText("GGC Rules (0-200: +10, &gt;200: +50, &gt;1k: +100)")
+					</OnLoad>
+					<OnClick>
+						SOTA_HandleCheckbox(self);
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentMinBidStrategy4" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="32" y="-242"/>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText("Deja Vu Rules (100-4999: +100, 5K+: +1000)")
+					</OnLoad>
+					<OnClick>
+						SOTA_HandleCheckbox(self);
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			<!--
+			<CheckButton name="$parentMinBidStrategy5" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="32" y="-264"/>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText("Custom bid rules")
+					</OnLoad>
+					<OnClick>
+						SOTA_HandleCheckbox(self);
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			-->
+			<!-- DKP String Length, options: 0-8 -->
+			<Slider name="$parentDKPStringLength" minValue="0" maxValue="8" defaultValue="5" valueStep="1" inherits="OptionsSliderTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="64" y="-312"/>
+					</Anchor>
+				</Anchors>
+				<Size>
+					<AbsDimension x="250" y="14" />
+				</Size>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Low"]:SetText("0")
+						_G[self:GetName().."High"]:SetText("8")
+					</OnLoad>
+					<OnValueChanged>
+						SOTA_OnOptionDKPStringLengthChanged(self);
+					</OnValueChanged>
+				</Scripts>
+			</Slider>
+			<!-- Minimum DKP Penalty, options: 0 - 500, step 10 -->
+			<Slider name="$parentMinimumDKPPenalty" minValue="0" maxValue="500" defaultValue="50" valueStep="10" inherits="OptionsSliderTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="64" y="-356"/>
+					</Anchor>
+				</Anchors>
+				<Size>
+					<AbsDimension x="250" y="14" />
+				</Size>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Low"]:SetText("0")
+						_G[self:GetName().."High"]:SetText("500")
+					</OnLoad>
+					<OnValueChanged>
+						SOTA_OnOptionMinimumDKPPenaltyChanged(self);
+					</OnValueChanged>
+				</Scripts>
+			</Slider>
+		</Frames>
+	</Frame>
+
+	<!-- Configuration Frame 2.1: Messages -->
+	<!-- Configurable messages -->
+	<Frame name="FrameConfigMessage" parent="UIParent" toplevel="true" hidden="true" inherits="SOTA_ConfigurationFrameTemplate">
+		<Frames>
+			<!-- Message list frame -->
+			<ScrollFrame name="$parentTableList" inherits="FauxScrollFrameTemplate">
+				<Size>
+					<AbsDimension x="286" y="250"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="26" y="-80"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+					<EdgeSize>
+						<AbsValue val="16"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val="16"/>
+					</TileSize>
+				</Backdrop>
+				<Scripts>
+					<OnVerticalScroll>
+						FauxScrollFrame_OnVerticalScroll(20, SOTA_UpdateTextList);
+					</OnVerticalScroll>
+					<OnShow>
+						SOTA_UpdateTextList()
+					</OnShow>
+				</Scripts>
+			</ScrollFrame>
+		</Frames>
+		<!-- Textual help -->
+		<Layers>
+			<Layer>
+				<FontString name="$parentExplanation1" justifyH="LEFT" inherits="GameFontNormal" text="$i - Item name">
+					<Size>
+						<AbsDimension x="130" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="36" y="-334"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentExplanation2" justifyH="LEFT" inherits="GameFontNormal" text="$b - Bidder name">
+					<Size>
+						<AbsDimension x="130" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="200" y="-334"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentExplanation3" justifyH="LEFT" inherits="GameFontNormal" text="$d - DKP value">
+					<Size>
+						<AbsDimension x="130" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="36" y="-354"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentExplanation4" justifyH="LEFT" inherits="GameFontNormal" text="$r - Bidder rank">
+					<Size>
+						<AbsDimension x="130" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="200" y="-354"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentExplanation5" justifyH="LEFT" inherits="GameFontNormal" text="$m - Minimum DKP">
+					<Size>
+						<AbsDimension x="130" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="36" y="-374"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentExplanation6" justifyH="LEFT" inherits="GameFontNormal" text="$s - SotA Master">
+					<Size>
+						<AbsDimension x="130" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="200" y="-374"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>
+
+	<!-- Configuration Frame 2.2: Bid Rules -->
+	<!-- Configurable Bid Rules -->
+	<Frame name="FrameConfigBidRules" parent="UIParent" inherits="SOTA_ConfigurationFrameTemplate">
+		<Frames>
+			<!-- Rule 1 input field -->
+			<EditBox name="$parentRule1" letters="120">
+				<Size>
+					<AbsDimension x="240" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="84" y="-100"/>
+					</Anchor>
+				</Anchors>
+				<FontString inherits="GameFontNormal"/>
+				<Scripts>
+					<OnLoad>
+						--self:RegisterEvent("OnEnterPressed")
+						self:SetScript("OnEnterPressed", function(self) self:ClearFocus(); SOTA_SaveRules_OnClick(); end);
+					</OnLoad>
+					<!--<OnEnterPressed>
+						SOTA_SaveRules_OnClick()
+					</OnEnterPressed>-->
+				</Scripts>
+			</EditBox>
+			<!-- Text 1 input field -->
+			<EditBox name="$parentText1" letters="120">
+				<Size>
+					<AbsDimension x="240" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="84" y="-130"/>
+					</Anchor>
+				</Anchors>
+				<FontString inherits="GameFontNormal"/>
+				<Scripts>
+					<OnLoad>
+						--self:RegisterEvent("OnEnterPressed")
+						self:SetScript("OnEnterPressed", function(self) self:ClearFocus(); SOTA_SaveRules_OnClick(); end);
+					</OnLoad>
+					<!--<OnEnterPressed>
+						SOTA_SaveRules_OnClick()
+					</OnEnterPressed>-->
+				</Scripts>
+			</EditBox>
+
+			<!-- Rule 2 input field -->
+			<EditBox name="$parentRule2" letters="120">
+				<Size>
+					<AbsDimension x="240" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="84" y="-180"/>
+					</Anchor>
+				</Anchors>
+				<FontString inherits="GameFontNormal"/>
+				<Scripts>
+					<OnLoad>
+						--self:RegisterEvent("OnEnterPressed")
+						self:SetScript("OnEnterPressed", function(self) self:ClearFocus(); SOTA_SaveRules_OnClick(); end);
+					</OnLoad>
+					<!--<OnEnterPressed>
+						SOTA_SaveRules_OnClick()
+					</OnEnterPressed>-->
+				</Scripts>
+			</EditBox>
+			<!-- Text 2 input field -->
+			<EditBox name="$parentText2" letters="120">
+				<Size>
+					<AbsDimension x="240" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="84" y="-210"/>
+					</Anchor>
+				</Anchors>
+				<FontString inherits="GameFontNormal"/>
+				<Scripts>
+					<OnLoad>
+						--self:RegisterEvent("OnEnterPressed")
+						self:SetScript("OnEnterPressed", function(self) self:ClearFocus(); SOTA_SaveRules_OnClick(); end);
+					</OnLoad>
+					<!--<OnEnterPressed>
+						SOTA_SaveRules_OnClick()
+					</OnEnterPressed>-->
+				</Scripts>
+			</EditBox>
+
+			<!-- Rule 3 input field -->
+			<EditBox name="$parentRule3" letters="120">
+				<Size>
+					<AbsDimension x="240" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="84" y="-260"/>
+					</Anchor>
+				</Anchors>
+				<FontString inherits="GameFontNormal"/>
+				<Scripts>
+					<OnLoad>
+						--self:RegisterEvent("OnEnterPressed")
+						self:SetScript("OnEnterPressed", function(self) self:ClearFocus(); SOTA_SaveRules_OnClick(); end);
+					</OnLoad>
+					<!--<OnEnterPressed>
+						SOTA_SaveRules_OnClick()
+					</OnEnterPressed>-->
+				</Scripts>
+			</EditBox>
+			<!-- Text 3 input field -->
+			<EditBox name="$parentText3" letters="120">
+				<Size>
+					<AbsDimension x="240" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="84" y="-290"/>
+					</Anchor>
+				</Anchors>
+				<FontString inherits="GameFontNormal"/>
+				<Scripts>
+					<OnLoad>
+						--self:RegisterEvent("OnEnterPressed")
+						self:SetScript("OnEnterPressed", function(self) self:ClearFocus(); SOTA_SaveRules_OnClick(); end);
+					</OnLoad>
+					<!--<OnEnterPressed>
+						SOTA_SaveRules_OnClick()
+					</OnEnterPressed>-->
+				</Scripts>
+			</EditBox>
+
+			<!-- Rule 4 input field -->
+			<EditBox name="$parentRule4" letters="120">
+				<Size>
+					<AbsDimension x="240" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="84" y="-340"/>
+					</Anchor>
+				</Anchors>
+				<FontString inherits="GameFontNormal"/>
+				<Scripts>
+					<OnLoad>
+						--self:RegisterEvent("OnEnterPressed")
+						self:SetScript("OnEnterPressed", function(self) self:ClearFocus(); SOTA_SaveRules_OnClick(); end);
+					</OnLoad>
+					<!--<OnEnterPressed>
+						SOTA_SaveRules_OnClick()
+					</OnEnterPressed>-->
+				</Scripts>
+			</EditBox>
+			<!-- Text 4 input field -->
+			<EditBox name="$parentText4" letters="120">
+				<Size>
+					<AbsDimension x="240" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="84" y="-370"/>
+					</Anchor>
+				</Anchors>
+				<FontString inherits="GameFontNormal"/>
+				<Scripts>
+					<OnLoad>
+						--self:RegisterEvent("OnEnterPressed")
+						self:SetScript("OnEnterPressed", function(self) self:ClearFocus(); SOTA_SaveRules_OnClick(); end);
+					</OnLoad>
+					<!--<OnEnterPressed>
+						SOTA_SaveRules_OnClick()
+					</OnEnterPressed>-->
+				</Scripts>
+			</EditBox>
+
+		</Frames>
+		<Layers>
+			<Layer level="OVERLAY">
+				<!-- Rule 1 EditBox border -->
+				<Texture name="$parentRule1TxLeft" file="Interface\ChatFrame\UI-ChatInputBorder-Left">
+					<Size>
+						<AbsDimension x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="74" y="146"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.125" top="0" bottom="1.0"/>
+				</Texture>
+				<Texture name="$parentRule1TxRight" file="Interface\ChatFrame\UI-ChatInputBorder-Right">
+					<Size>
+						<AbsDimension x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="-50" y="146"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.875" right="1" top="0" bottom="1.0" />
+				</Texture>
+				<Texture name="$parentRule1TxCenter" file="Interface\ChatFrame\UI-ChatInputBorder-Right">
+					<Size>
+						<AbsDimension x="1" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentRule1TxLeft" relativePoint="RIGHT"/>
+						<Anchor point="RIGHT" relativeTo="$parentRule1TxRight" relativePoint="LEFT"/>
+					</Anchors>
+					<TexCoords left="0" right="0.9375" top="0" bottom="1.0" />
+				</Texture>
+				<!-- Text 1 EditBox border -->
+				<Texture name="$parentText1TxLeft" file="Interface\ChatFrame\UI-ChatInputBorder-Left">
+					<Size>
+						<AbsDimension x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="74" y="116"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.125" top="0" bottom="1.0"/>
+				</Texture>
+				<Texture name="$parentText1TxRight" file="Interface\ChatFrame\UI-ChatInputBorder-Right">
+					<Size>
+						<AbsDimension x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="-50" y="116"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.875" right="1" top="0" bottom="1.0" />
+				</Texture>
+				<Texture name="$parentText1TxCenter" file="Interface\ChatFrame\UI-ChatInputBorder-Right">
+					<Size>
+						<AbsDimension x="1" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentText1TxLeft" relativePoint="RIGHT"/>
+						<Anchor point="RIGHT" relativeTo="$parentText1TxRight" relativePoint="LEFT"/>
+					</Anchors>
+					<TexCoords left="0" right="0.9375" top="0" bottom="1.0" />
+				</Texture>
+
+				<!-- Rule 2 EditBox border -->
+				<Texture name="$parentRule2TxLeft" file="Interface\ChatFrame\UI-ChatInputBorder-Left">
+					<Size>
+						<AbsDimension x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="74" y="66"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.125" top="0" bottom="1.0"/>
+				</Texture>
+				<Texture name="$parentRule2TxRight" file="Interface\ChatFrame\UI-ChatInputBorder-Right">
+					<Size>
+						<AbsDimension x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="-50" y="66"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.875" right="1" top="0" bottom="1.0" />
+				</Texture>
+				<Texture name="$parentRule2TxCenter" file="Interface\ChatFrame\UI-ChatInputBorder-Right">
+					<Size>
+						<AbsDimension x="1" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentRule2TxLeft" relativePoint="RIGHT"/>
+						<Anchor point="RIGHT" relativeTo="$parentRule2TxRight" relativePoint="LEFT"/>
+					</Anchors>
+					<TexCoords left="0" right="0.9375" top="0" bottom="1.0" />
+				</Texture>
+				<!-- Text 2 EditBox border -->
+				<Texture name="$parentText2TxLeft" file="Interface\ChatFrame\UI-ChatInputBorder-Left">
+					<Size>
+						<AbsDimension x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="74" y="36"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.125" top="0" bottom="1.0"/>
+				</Texture>
+				<Texture name="$parentText2TxRight" file="Interface\ChatFrame\UI-ChatInputBorder-Right">
+					<Size>
+						<AbsDimension x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="-50" y="36"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.875" right="1" top="0" bottom="1.0" />
+				</Texture>
+				<Texture name="$parentText2TxCenter" file="Interface\ChatFrame\UI-ChatInputBorder-Right">
+					<Size>
+						<AbsDimension x="1" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentText2TxLeft" relativePoint="RIGHT"/>
+						<Anchor point="RIGHT" relativeTo="$parentText2TxRight" relativePoint="LEFT"/>
+					</Anchors>
+					<TexCoords left="0" right="0.9375" top="0" bottom="1.0" />
+				</Texture>
+
+				<!-- Rule 3 EditBox border -->
+				<Texture name="$parentRule3TxLeft" file="Interface\ChatFrame\UI-ChatInputBorder-Left">
+					<Size>
+						<AbsDimension x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="74" y="-14"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.125" top="0" bottom="1.0"/>
+				</Texture>
+				<Texture name="$parentRule3TxRight" file="Interface\ChatFrame\UI-ChatInputBorder-Right">
+					<Size>
+						<AbsDimension x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="-50" y="-14"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.875" right="1" top="0" bottom="1.0" />
+				</Texture>
+				<Texture name="$parentRule3TxCenter" file="Interface\ChatFrame\UI-ChatInputBorder-Right">
+					<Size>
+						<AbsDimension x="1" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentRule3TxLeft" relativePoint="RIGHT"/>
+						<Anchor point="RIGHT" relativeTo="$parentRule3TxRight" relativePoint="LEFT"/>
+					</Anchors>
+					<TexCoords left="0" right="0.9375" top="0" bottom="1.0" />
+				</Texture>
+				<!-- Text 3 EditBox border -->
+				<Texture name="$parentText3TxLeft" file="Interface\ChatFrame\UI-ChatInputBorder-Left">
+					<Size>
+						<AbsDimension x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="74" y="-44"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.125" top="0" bottom="1.0"/>
+				</Texture>
+				<Texture name="$parentText3TxRight" file="Interface\ChatFrame\UI-ChatInputBorder-Right">
+					<Size>
+						<AbsDimension x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="-50" y="-44"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.875" right="1" top="0" bottom="1.0" />
+				</Texture>
+				<Texture name="$parentText3TxCenter" file="Interface\ChatFrame\UI-ChatInputBorder-Right">
+					<Size>
+						<AbsDimension x="1" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentText3TxLeft" relativePoint="RIGHT"/>
+						<Anchor point="RIGHT" relativeTo="$parentText3TxRight" relativePoint="LEFT"/>
+					</Anchors>
+					<TexCoords left="0" right="0.9375" top="0" bottom="1.0" />
+				</Texture>
+
+				<!-- Rule 4 EditBox border -->
+				<Texture name="$parentRule4TxLeft" file="Interface\ChatFrame\UI-ChatInputBorder-Left">
+					<Size>
+						<AbsDimension x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="74" y="-94"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.125" top="0" bottom="1.0"/>
+				</Texture>
+				<Texture name="$parentRule4TxRight" file="Interface\ChatFrame\UI-ChatInputBorder-Right">
+					<Size>
+						<AbsDimension x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="-50" y="-94"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.875" right="1" top="0" bottom="1.0" />
+				</Texture>
+				<Texture name="$parentRule4TxCenter" file="Interface\ChatFrame\UI-ChatInputBorder-Right">
+					<Size>
+						<AbsDimension x="1" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentRule4TxLeft" relativePoint="RIGHT"/>
+						<Anchor point="RIGHT" relativeTo="$parentRule4TxRight" relativePoint="LEFT"/>
+					</Anchors>
+					<TexCoords left="0" right="0.9375" top="0" bottom="1.0" />
+				</Texture>
+				<!-- Text 4 EditBox border -->
+				<Texture name="$parentText4TxLeft" file="Interface\ChatFrame\UI-ChatInputBorder-Left">
+					<Size>
+						<AbsDimension x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="74" y="-124"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.125" top="0" bottom="1.0"/>
+				</Texture>
+				<Texture name="$parentText4TxRight" file="Interface\ChatFrame\UI-ChatInputBorder-Right">
+					<Size>
+						<AbsDimension x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="-50" y="-124"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.875" right="1" top="0" bottom="1.0" />
+				</Texture>
+				<Texture name="$parentText4TxCenter" file="Interface\ChatFrame\UI-ChatInputBorder-Right">
+					<Size>
+						<AbsDimension x="1" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentText4TxLeft" relativePoint="RIGHT"/>
+						<Anchor point="RIGHT" relativeTo="$parentText4TxRight" relativePoint="LEFT"/>
+					</Anchors>
+					<TexCoords left="0" right="0.9375" top="0" bottom="1.0" />
+				</Texture>
+
+			</Layer>
+		</Layers>
+	</Frame>
+
+	<!-- Configuration Frame 2.3: Sync Cfg -->
+	<!-- Synchronize Configuration to other SotA users -->
+	<Frame name="FrameConfigSyncCfg" parent="UIParent" inherits="SOTA_ConfigurationFrameTemplate">
+		<Frames>
+			<!-- Message list frame -->
+			<ScrollFrame name="$parentTableList" inherits="FauxScrollFrameTemplate">
+				<Size>
+					<AbsDimension x="286" y="250"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="26" y="-80"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+					<EdgeSize>
+						<AbsValue val="16"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val="16"/>
+					</TileSize>
+				</Backdrop>
+				<Scripts>
+					<OnVerticalScroll>
+						--FauxScrollFrame_OnVerticalScroll(20, SOTA_UpdateTextList);
+					</OnVerticalScroll>
+					<OnShow>						
+						--SOTA_UpdateTextList()
+					</OnShow>
+				</Scripts>
+			</ScrollFrame>
+		</Frames>
+	</Frame>
+
+
+	<!-- Event Message editor frame -->
+	<Frame name="FrameEventEditor" parent="UIParent" toplevel="true" hidden="true">
+		<Size>
+			<AbsDimension x="400" y="240" />
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset x="0" y="0" />
+			</Anchor>
+		</Anchors>
+		<Backdrop edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="11" right="12" top="12" bottom="11" />
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="32" />
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="32" />
+			</EdgeSize>
+		</Backdrop>
+		<Frames>
+			<!-- Message input field -->
+			<EditBox name="$parentMessage" letters="120">
+				<Size>
+					<AbsDimension x="336" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="32" y="-28"/>
+					</Anchor>
+				</Anchors>
+				<FontString inherits="GameFontNormal"/>
+				<Scripts>
+					<OnLoad>
+						--self:RegisterEvent("OnEscapePressed")
+						self:SetScript("OnEscapePressed", function(self) self:ClearFocus(); SOTA_OnEventEditorClose(); end);
+					</OnLoad>
+					<!--<OnEscapePressed>
+						SOTA_OnEventEditorClose();
+					</OnEscapePressed>-->
+				</Scripts>
+			</EditBox>
+			<!-- OK button -->
+			<Button name="OkButton" inherits="UIPanelButtonTemplate" text="OK">
+				<Size>
+					<AbsDimension x="100" y="23" />
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="100" y="-200" />
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SOTA_OnEventEditorSave();
+					</OnClick>
+				</Scripts>
+			</Button>
+			<!-- Cancel button -->
+			<Button name="CancelButton" inherits="UIPanelButtonTemplate" text="Cancel">
+				<Size>
+					<AbsDimension x="100" y="23" />
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="200" y="-200" />
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SOTA_OnEventEditorClose();
+					</OnClick>
+				</Scripts>
+			</Button>
+			<CheckButton name="$parentCheckbuttonRW" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="32" y="-64"/>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText("Raid Warning (/RW)")
+					</OnLoad>
+					<OnClick>
+						SOTA_OnEventCheckboxClick(self);
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentCheckbuttonRaid" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="32" y="-88"/>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText("Raid Chat (/R)")
+					</OnLoad>
+					<OnClick>
+						SOTA_OnEventCheckboxClick(self);
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentCheckbuttonGuild" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="32" y="-112"/>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText("Guild Chat (/G)")
+					</OnLoad>
+					<OnClick>
+						SOTA_OnEventCheckboxClick(self);
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentCheckbuttonYell" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="32" y="-136"/>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText("Yell (/Y)")
+					</OnLoad>
+					<OnClick>
+						SOTA_OnEventCheckboxClick(self);
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentCheckbuttonSay" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="32" y="-160"/>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Text"]:SetText("Say (/S)")
+					</OnLoad>
+					<OnClick>
+						SOTA_OnEventCheckboxClick(self);
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+		</Frames>
+		<Layers>
+			<Layer level="BORDER">
+				<!-- Message EditBox border -->
+				<Texture name="$parentTextureLeft" file="Interface\ChatFrame\UI-ChatInputBorder-Left">
+					<Size>
+						<AbsDimension x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="20" y="82"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.125" top="0" bottom="1.0" />
+				</Texture>
+				<Texture name="$parentTextureRight" file="Interface\ChatFrame\UI-ChatInputBorder-Right">
+					<Size>
+						<AbsDimension x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="-16" y="82"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.875" right="1" top="0" bottom="1.0" />
+				</Texture>
+				<Texture name="$parentTextureCenter" file="Interface\ChatFrame\UI-ChatInputBorder-Right">
+					<Size>
+						<AbsDimension x="1" y="32" />
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentTextureLeft" relativePoint="RIGHT" />
+						<Anchor point="RIGHT" relativeTo="$parentTextureRight" relativePoint="LEFT" />
+					</Anchors>
+					<TexCoords left="0" right="0.9375" top="0" bottom="1.0" />
+				</Texture>
+			</Layer>
+			<Layer level="BACKGROUND">
+				<Texture setAllPoints="true">
+					<Color r="0.0" g="0.0" b="0.0" a="0.9"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				self:SetMovable(true)
+				self:SetUserPlaced(true)
+				self:RegisterForDrag("LeftButton")
+			</OnLoad>
+			<OnDragStart>
+				self:StartMoving()
+			</OnDragStart>
+			<OnDragStop>
+				self:StopMovingOrSizing()
+			</OnDragStop>
+		</Scripts>
+	</Frame>
+	
+</Ui>

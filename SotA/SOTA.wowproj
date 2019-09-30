@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Deploy" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Default</Configuration>
+    <Name>SotA</Name>
+    <ProjectGuid>{a48a4cd1-0f42-442c-8f75-8bbc1619a9cc}</ProjectGuid>
+    <AssemblyName>SotA</AssemblyName>
+    <RootNamespace>SotA</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Default' ">
+    <OutputPath>.</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Classic findings.txt" />
+    <Content Include="sota-auction.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="sota-auction.lua">
+      <SubType>Code</SubType>
+      <DependentUpon>sota-auction.xml</DependentUpon>
+    </Content>
+    <Content Include="ReadMe.txt" />
+    <Content Include="sota-core.lua">
+      <SubType>Code</SubType>
+      <DependentUpon>sota-core.xml</DependentUpon>
+    </Content>
+    <Content Include="sota-core.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="sota-dashboard.lua">
+      <SubType>Code</SubType>
+      <DependentUpon>sota-dashboard.xml</DependentUpon>
+    </Content>
+    <Content Include="sota-dashboard.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="sota-options.lua">
+      <SubType>Code</SubType>
+      <DependentUpon>sota-options.xml</DependentUpon>
+    </Content>
+    <Content Include="sota-options.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="sota-raidqueue.lua">
+      <SubType>Code</SubType>
+      <DependentUpon>sota-raidqueue.xml</DependentUpon>
+    </Content>
+    <Content Include="sota-raidqueue.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="sota-titanpanel.lua">
+      <SubType>Code</SubType>
+      <DependentUpon>sota-titanpanel.xml</DependentUpon>
+    </Content>
+    <Content Include="sota-titanpanel.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="SotA.toc">
+      <SubType>TableOfContents</SubType>
+    </Content>
+    <Content Include="sota.txt" />
+    <Content Include="sota-transactionlog.lua">
+      <SubType>Code</SubType>
+      <DependentUpon>sota-transactionlog.xml</DependentUpon>
+    </Content>
+    <Content Include="sota-transactionlog.xml">
+      <SubType>Frame</SubType>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(DevEnvDir)\Extensions\Tools\MSBuild\AddonStudio\Wow\3.0\WowAddonStudio.targets" />
+  <!--
+  To modify your build process, add your task inside one of the targets below and uncomment it.
+  <Target Name="BeforeClean"></Target>
+  <Target Name="AfterClean"></Target>
+  <Target Name="BeforeRebuild"></Target>
+  <Target Name="AfterRebuild"></Target>
+  <Target Name="BeforeDeploy"></Target>
+  <Target Name="AfterDeploy"></Target>
+  -->
+</Project>
