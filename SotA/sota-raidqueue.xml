@@ -81,7 +81,8 @@
 		</Layers>
 		<Scripts>
 			<OnClick>
-				PlaySound("igMainMenuOptionCheckBoxOn")
+				--PlaySound("igMainMenuOptionCheckBoxOn", "Master")
+				PlaySound(882, "Master")
 				SOTA_OnQueuedPlayerClick(self, arg1)
 			</OnClick>
 			<OnEnter>

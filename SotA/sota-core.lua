@@ -227,6 +227,10 @@ end
 --]]
 function SOTA_GetPlayerName(nameAndRealm)
 	local _, _, name = string.find(nameAndRealm, "([^-]*)-%s*");
+	if not name then
+		name = nameAndRealm;
+	end;
+
 	return name;
 end;
 
@@ -473,6 +477,11 @@ function SOTA_RefreshGuildRoster()
 			zone = "";
 		end
 
+		local isOnline = 0;
+		if online then 
+			isOnline = 1; 
+		end;
+
 		if SOTA_CONFIG_UseGuildNotes == 1 then		
 			note = publicnote
 		else
@@ -482,11 +491,7 @@ function SOTA_RefreshGuildRoster()
 		if not note or note == "" then
 			note = "<0>";
 		end
-		
-		if not online then
-			online = 0;
-		end
-		
+				
 		local _, _, dkp = string.find(note, "<(-?%d*)>")
 		if not dkp or not tonumber(dkp) then
 			dkp = 0;
@@ -494,7 +499,7 @@ function SOTA_RefreshGuildRoster()
 		
 		--echo(string.format("Added %s (%d)", name, online));
 		
-		NewGuildRosterTable[n] = { name, (1 * dkp), class, rank, online, zone, rankIndex };
+		NewGuildRosterTable[n] = { name, (1 * dkp), class, rank, isOnline, zone, rankIndex };
 	end
 	
 	GuildRosterTable = NewGuildRosterTable;

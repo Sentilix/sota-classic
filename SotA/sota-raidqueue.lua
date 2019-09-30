@@ -151,7 +151,7 @@ function SOTA_UpdateRaidQueueTable(caption, framename, sourcetable)
 		end
 
 		local nameColor = offlineColor;
-		if not(playername == "") then
+		if playername ~= "" then
 			local guildInfo = SOTA_GetGuildPlayerInfo(playername);
 			if guildInfo then
 				if guildInfo[5] == 1 then
@@ -208,11 +208,10 @@ end
 function SOTA_UpdateQueueOfflineTimers()
 	for n=1, table.getn(SOTA_RaidQueue), 1 do
 		local playername = SOTA_RaidQueue[n][1];
-	
 		local guildInfo = SOTA_GetGuildPlayerInfo(playername);
 		if guildInfo then
 			-- 0=OFFLINE, 1=ONLINE
-			if guildInfo[5] == 1 then
+			if (guildInfo[5] == 1) then
 				if SOTA_RaidQueue[n][6] > 0 then
 					SOTA_RaidQueue[n][6] = 0;	
 				end;
@@ -259,7 +258,7 @@ function SOTA_InviteQueuedPlayerGroupNow(role)
 
 	for n=1, table.getn(SOTA_RaidQueue), 1 do
 		if SOTA_RaidQueue[n][3] == role then
-			InviteByName(SOTA_RaidQueue[n][1]);
+			InviteUnit(SOTA_RaidQueue[n][1]);
 		end
 	end
 end
@@ -280,7 +279,7 @@ function SOTA_InviteQueuedPlayer(playername)
 		text = string.format("Do you want to invite %s into the raid?", playername),
 		button1 = "Yes",
 		button2 = "No",
-		OnAccept = function() InviteByName(playername) end,
+		OnAccept = function() InviteUnit(playername) end,
 		timeout = 0,
 		whileDead = true,
 		hideOnEscape = true,

@@ -741,7 +741,6 @@ function SOTA_Synchronize()
 	addonEcho("TX_SYNCINIT##");
 	
 	SOTA_AddTimer(SOTA_HandleRXSyncInitDone, 3);
-echo("SOTA_AddTimer addonEcho");
 end
 
 
@@ -753,10 +752,9 @@ end
 --]]
 function SOTA_HandleTXMaster(message, sender)
 	local playername = UnitName("player")
-	local senderName = SOTA_GetPlayerName(sender);
 	--echo(string.format("TX_MASTER: msg=%s, sender=%s", message, sender));
 
-	if senderName == playername then
+	if sender == playername then
 		return;
 	end
 
@@ -795,18 +793,14 @@ end
 	GuildDKP:<sender (which is actually the receiver!)>:<version number>
 ]]
 local function SOTA_HandleTXVersion(message, sender)
-	local senderName = SOTA_GetPlayerName(sender);
-
-	addonEcho(string.format("RX_VERSION#%s#%s", GetAddOnMetadata("SOTA", "Version"), senderName));
+	addonEcho(string.format("RX_VERSION#%s#%s", GetAddOnMetadata("SOTA", "Version"), sender));
 end
 
 --[[
 --	A version response (RX) was received. The version information is displayed locally.
 --]]
 local function SOTA_HandleRXVersion(message, sender)
-	local senderName = SOTA_GetPlayerName(sender);
-
-	localEcho(string.format("%s is using %s version %s", senderName, SOTA_TITLE, message));
+	localEcho(string.format("%s is using %s version %s", sender, SOTA_TITLE, message));
 end
 
 
@@ -814,10 +808,8 @@ end
 --	TX_UPDATE: A transaction was broadcasted. Add transaction details to transactions list.
 --]]
 local function SOTA_HandleTXUpdate(message, sender)
-	local senderName = SOTA_GetPlayerName(sender);
-
 	--	Message was from SELF, no need to update transactions since I made them already!
-	if (senderName == UnitName("player")) then
+	if (sender == UnitName("player")) then
 		--echo(string.format("Message from self, skipping - Msg=%s", message));
 		return
 	end
@@ -869,10 +861,8 @@ end
 --	AND the number of records in SOTA_RaidQueue.
 --]]
 function SOTA_HandleTXSyncInit(message, sender)
-	local senderName = SOTA_GetPlayerName(sender);
-
 	--	Message was from SELF, no need to return RX_SYNCINIT
-	if (senderName == UnitName("player")) then
+	if (sender == UnitName("player")) then
 		return;
 	end
 
@@ -880,21 +870,19 @@ function SOTA_HandleTXSyncInit(message, sender)
 	syncRQResults = { };
 
 	-- Transaction Log:	
-	addonEcho("RX_SYNCINIT#"..SOTA_currentTransactionID.."#"..senderName)
+	addonEcho("RX_SYNCINIT#"..SOTA_currentTransactionID.."#"..sender)
 	-- Raid queue: (kept in two messages for backwards compability)
-	addonEcho("RX_SYNCRQINIT#".. table.getn(SOTA_RaidQueue) .."#"..senderName)
+	addonEcho("RX_SYNCRQINIT#".. table.getn(SOTA_RaidQueue) .."#"..sender)
 	
 	-- If this is the MASTER, we should also tell this to the requester.
 	if SOTA_Master then
-		addonEcho("TX_SETMASTER#".. SOTA_Master .."#"..senderName);	
+		addonEcho("TX_SETMASTER#".. SOTA_Master .."#"..sender);	
 	end
 end
 
 
 --Handle RX_SYNCINIT responses from clients
 function SOTA_HandleRXSyncInit(message, sender)
-	local senderName = SOTA_GetPlayerName(sender);
-
 	--	Check we are still in TX_SYNCINIT state
 	if not (synchronizationState == 1) then
 		return
@@ -903,13 +891,11 @@ function SOTA_HandleRXSyncInit(message, sender)
 	local maxTid = tonumber(message);
 	local syncIndex = table.getn(syncResults) + 1;
 	
-	syncResults[syncIndex] = { senderName, maxTid };
+	syncResults[syncIndex] = { sender, maxTid };
 end
 
 --Handle RX_SYNCRQINIT responses from clients
 function SOTA_HandleRXSyncRQInit(message, sender)
-	local senderName = SOTA_GetPlayerName(sender);
-
 	--	Check we are still in TX_SYNCINIT state
 	if not (synchronizationState == 1) then
 		return
@@ -918,7 +904,7 @@ function SOTA_HandleRXSyncRQInit(message, sender)
 	local qCount = tonumber(message);
 	local syncIndex = table.getn(syncRQResults) + 1;
 	
-	syncRQResults[syncIndex] = { senderName, qCount };
+	syncRQResults[syncIndex] = { sender, qCount };
 end
 
 
@@ -972,8 +958,6 @@ end
 
 --	Client is requested to sync transaction log with <sender>
 function SOTA_HandleTXSyncTransaction(message, sender)
-	local senderName = SOTA_GetPlayerName(sender);
-
 	--	Iterate over transactions
 	for n = 1, table.getn(SOTA_transactionLog), 1 do
 		local rec = SOTA_transactionLog[n]
@@ -992,20 +976,18 @@ function SOTA_HandleTXSyncTransaction(message, sender)
 			
 			local response = timestamp.."/"..tid.."/"..author.."/"..desc.."/"..state.."/"..name.."/"..dkp;
 			
-			addonEcho("RX_SYNCTRAC#"..response.."#"..senderName);
+			addonEcho("RX_SYNCTRAC#"..response.."#"..sender);
 		end
 	end
 	
 	--	Last, send an EOF to signal all transactions were sent.
-	addonEcho("RX_SYNCTRAC#EOF#"..senderName);
+	addonEcho("RX_SYNCTRAC#EOF#"..sender);
 end
 
 --[[
 --	Sync all elements in raid queue to sender.
 --]]
 function SOTA_HandleTXSyncRaidQueue(message, sender)
-	local senderName = SOTA_GetPlayerName(sender);
-
 	--{ Name, QueueID, Role , Class }
 	for n=1, table.getn(SOTA_RaidQueue), 1 do
 		local name = SOTA_RaidQueue[n][1];
@@ -1021,11 +1003,11 @@ function SOTA_HandleTXSyncRaidQueue(message, sender)
 		--	older (pre 1.2) SOTA clients.
 
 		local response = name.."/"..role.."/"..clss;
-		addonEcho("RX_SYNCRAIDQ#"..response.."#"..senderName);
+		addonEcho("RX_SYNCRAIDQ#"..response.."#"..sender);
 	end
 
 	--	Last, send an EOF to signal all records were sent.
-	addonEcho("RX_SYNCRAIDQ#EOF#"..senderName);
+	addonEcho("RX_SYNCRAIDQ#EOF#"..sender);
 end
 
 
@@ -1094,9 +1076,6 @@ end;
 --	Return current Cfg version to [sender]
 --]]
 function SOTA_HandleTXConfigSyncRequest(message, sender)
-	local senderName = SOTA_GetPlayerName(sender);
-	--	echo("In SOTA_HandleTXConfigSyncRequest");
-
 	if not SOTA_CONFIG_VersionNumber then
 		SOTA_CONFIG_VersionNumber = -1;
 	end;
@@ -1104,16 +1083,16 @@ function SOTA_HandleTXConfigSyncRequest(message, sender)
 		SOTA_CONFIG_VersionDate = "nil";
 	end;
 
-	addonEcho("RX_CFGSYNCREQ#"..SOTA_CONFIG_VersionNumber..","..SOTA_CONFIG_VersionDate.."#"..senderName);
+	addonEcho("RX_CFGSYNCREQ#"..SOTA_CONFIG_VersionNumber..","..SOTA_CONFIG_VersionDate.."#"..sender);
 end;
 
-function SOTA_HandleRXConfigSyncRequest(message, senderName)
+function SOTA_HandleRXConfigSyncRequest(message, sender)
 	echo("In SOTA_HandleRXConfigSyncRequest");
 
 	local _, _, senderVersion, senderDate = string.find(message, "([^,]*),([^,]*)")
 
 	-- TODO: Add this message to list of known versions:
-	echo(string.format("Sender=%s, version=%s, date=%s", senderName, senderVersion, senderDate));
+	echo(string.format("Sender=%s, version=%s, date=%s", sender, senderVersion, senderDate));
 end;
 
 
@@ -1145,41 +1124,42 @@ function SOTA_OnChatMsgAddon(event, ...)
 		end
 		
 		--echo(string.format("Incoming: CMD=%s, MSG=%s, Sender=%s, Recipient: %s", cmd, message, sender, recipient));
+		local senderName = SOTA_GetPlayerName(sender);
 	
 		if cmd == "TX_VERSION" then
-			SOTA_HandleTXVersion(message, sender)
+			SOTA_HandleTXVersion(message, senderName)
 		elseif cmd == "RX_VERSION" then
-			SOTA_HandleRXVersion(message, sender)
+			SOTA_HandleRXVersion(message, senderName)
 		elseif cmd == "TX_UPDATE" then
-			SOTA_HandleTXUpdate(message, sender)
+			SOTA_HandleTXUpdate(message, senderName)
 		elseif cmd == "TX_SYNCINIT" then
-			SOTA_HandleTXSyncInit(message, sender)
+			SOTA_HandleTXSyncInit(message, senderName)
 		elseif cmd == "RX_SYNCINIT" then
-			SOTA_HandleRXSyncInit(message, sender)
+			SOTA_HandleRXSyncInit(message, senderName)
 		elseif cmd == "RX_SYNCRQINIT" then
-			SOTA_HandleRXSyncRQInit(message, sender)
+			SOTA_HandleRXSyncRQInit(message, senderName)
 		elseif cmd == "TX_SYNCTRAC" then
-			SOTA_HandleTXSyncTransaction(message, sender)
+			SOTA_HandleTXSyncTransaction(message, senderName)
 		elseif cmd == "RX_SYNCTRAC" then
-			SOTA_HandleRXSyncTransaction(message, sender)
+			SOTA_HandleRXSyncTransaction(message, senderName)
 		elseif cmd == "TX_SYNCRAIDQ" then
-			SOTA_HandleTXSyncRaidQueue(message, sender)		
+			SOTA_HandleTXSyncRaidQueue(message, senderName)		
 		elseif cmd == "RX_SYNCRAIDQ" then
-			SOTA_HandleRXSyncRaidQueue(message, sender)
+			SOTA_HandleRXSyncRaidQueue(message, senderName)
 		elseif cmd == "TX_SYNCRQINIT" then
-			SOTA_HandleTXSyncRaidQueueInit(message, sender)
+			SOTA_HandleTXSyncRaidQueueInit(message, senderName)
 		elseif cmd == "RX_SYNCRQINIT" then
-			SOTA_HandleRXSyncRaidQueueInit(message, sender)
+			SOTA_HandleRXSyncRaidQueueInit(message, senderName)
 		elseif cmd == "TX_CFGSYNCREQ" then
-			SOTA_HandleTXConfigSyncRequest(message, sender)
+			SOTA_HandleTXConfigSyncRequest(message, senderName)
 		elseif cmd == "RX_CFGSYNCREQ" then
-			SOTA_HandleRXConfigSyncRequest(message, sender)
+			SOTA_HandleRXConfigSyncRequest(message, senderName)
 		elseif cmd == "TX_SETMASTER" then
-			SOTA_HandleTXMaster(message, sender)		
+			SOTA_HandleTXMaster(message, senderName)		
 		elseif cmd == "TX_JOINQUEUE" then
-			SOTA_HandleTXJoinQueue(message, sender)		
+			SOTA_HandleTXJoinQueue(message, senderName)		
 		elseif cmd == "TX_LEAVEQUEUE" then
-			SOTA_HandleTXLeaveQueue(message, sender)		
+			SOTA_HandleTXLeaveQueue(message, senderName)		
 		else
 			--gEcho("Unknown command, raw msg="..msg)
 		end
