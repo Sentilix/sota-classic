@@ -1,8 +1,11 @@
 # SotA - State of the Art
 ... The next step in DKP!
 
-Note: This version for WoW Classic is in an early Alpha stage.
-DKP works, but rest is most likely b roken (it's untested!)
+**Note: This version for WoW Classic is in an early Alpha stage.**
+
+DKP works, but rest is most likely broken (it's untested!).
+Keep checking for updates :-)
+
 
 
 Contents
