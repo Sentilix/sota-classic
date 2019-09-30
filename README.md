@@ -6,7 +6,7 @@
 DKP works, but rest is most likely broken (it's untested!).
 Keep checking for updates :-)
 
-
+![SOTA Raid queue](https://github.com/Sentilix/sota-classic/blob/master/images/offline-raidqueue.png?raw=true "SOTA Raid queue")
 
 Contents
 1. What is Sota?
