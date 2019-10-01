@@ -213,7 +213,6 @@
 	<Frame name="SOTAEventFrame">
 		<Scripts>
 			<OnLoad>
-				echo("ONLOAD!!!");
 				if (SOTA_OnLoad) then
 				SOTA_OnLoad();
 				end

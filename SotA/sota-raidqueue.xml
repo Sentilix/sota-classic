@@ -81,9 +81,8 @@
 		</Layers>
 		<Scripts>
 			<OnClick>
-				--PlaySound("igMainMenuOptionCheckBoxOn", "Master")
 				PlaySound(882, "Master")
-				SOTA_OnQueuedPlayerClick(self, arg1)
+				SOTA_OnQueuedPlayerClick(self, button)
 			</OnClick>
 			<OnEnter>
 				_G[self:GetName().."BG"]:SetVertexColor(1, 1, 1, 1)
@@ -92,10 +91,7 @@
 				_G[self:GetName().."BG"]:SetVertexColor(0.7, 0.7, 0.7, 0.7)
 			</OnLeave>
 			<OnLoad>
-				self:RegisterForClicks(
-				"LeftButtonDown",
-				"RightButtonDown"
-				)
+				self:RegisterForClicks("LeftButtonDown","RightButtonDown")
 				self:GetScript("OnLeave")(self)
 			</OnLoad>
 		</Scripts>

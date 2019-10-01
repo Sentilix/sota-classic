@@ -1364,11 +1364,8 @@ function SOTA_OnLoad()
 	SOTA_SetMasterState(SOTA_Master, CLIENT_STATE);
 	
 	if SOTA_IsInRaid(true) then	
-echo("Before SOTA_Synchronize");
 		SOTA_Synchronize();
 	end
-
-echo("After SOTA_Synchronize");
 	
 	if not SOTA_CONFIG_VersionNumber then
 		SOTA_CONFIG_VersionNumber = 1;

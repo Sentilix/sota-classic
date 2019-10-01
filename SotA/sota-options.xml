@@ -251,16 +251,16 @@
 	</Frame>
 
 	<!-- Boss DKP slider (config element for Boss DKP)  -->
-	<Slider name="SOTA_BossDKPSlider" minValue="0" maxValue="4000" defaultValue="400" valueStep="100" inherits="OptionsSliderTemplate" virtual="true">
+	<Slider name="SOTA_BossDKPSlider" minValue="0" maxValue="10000" defaultValue="1000" valueStep="100" inherits="OptionsSliderTemplate" virtual="true" enableMouse="true">
 		<Size>
 			<AbsDimension x="300" y="14" />
 		</Size>
 		<Scripts>
 			<OnLoad>
-				_G[self:GetName().."Low"]:SetText("0")
-				_G[self:GetName().."High"]:SetText("4000")
+				_G[self:GetName().."Low"]:SetText("0");
+				_G[self:GetName().."High"]:SetText("10000");
 			</OnLoad>
-			<OnValueChanged>
+			<OnValueChanged>				
 				SOTA_OnOptionBossDKPChanged(self);
 			</OnValueChanged>
 		</Scripts>
@@ -315,7 +315,7 @@
 		<Scripts>
 			<OnClick>
 				SOTA_OnEventMessageClick(self)
-				PlaySound("igMainMenuOptionCheckBoxOn")
+				PlaySound(882, "Master")
 			</OnClick>
 			<OnEnter>
 				_G[self:GetName().."BG"]:SetVertexColor(1, 1, 1, 1)
@@ -616,23 +616,6 @@
 					</OnClick>
 				</Scripts>
 			</CheckButton>
-			<!--
-			<CheckButton name="$parentMinBidStrategy5" inherits="OptionsCheckButtonTemplate">
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset x="32" y="-264"/>
-					</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnLoad>
-						_G[self:GetName().."Text"]:SetText("Custom bid rules")
-					</OnLoad>
-					<OnClick>
-						SOTA_HandleCheckbox(self);
-					</OnClick>
-				</Scripts>
-			</CheckButton>
-			-->
 			<!-- DKP String Length, options: 0-8 -->
 			<Slider name="$parentDKPStringLength" minValue="0" maxValue="8" defaultValue="5" valueStep="1" inherits="OptionsSliderTemplate">
 				<Anchors>
@@ -653,8 +636,8 @@
 					</OnValueChanged>
 				</Scripts>
 			</Slider>
-			<!-- Minimum DKP Penalty, options: 0 - 500, step 10 -->
-			<Slider name="$parentMinimumDKPPenalty" minValue="0" maxValue="500" defaultValue="50" valueStep="10" inherits="OptionsSliderTemplate">
+			<!-- Minimum DKP Penalty, options: 0 - 1000, step 50 -->
+			<Slider name="$parentMinimumDKPPenalty" minValue="0" maxValue="1000" defaultValue="200" valueStep="25" inherits="OptionsSliderTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset x="64" y="-356"/>
@@ -666,7 +649,7 @@
 				<Scripts>
 					<OnLoad>
 						_G[self:GetName().."Low"]:SetText("0")
-						_G[self:GetName().."High"]:SetText("500")
+						_G[self:GetName().."High"]:SetText("1000")
 					</OnLoad>
 					<OnValueChanged>
 						SOTA_OnOptionMinimumDKPPenaltyChanged(self);

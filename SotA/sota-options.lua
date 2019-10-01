@@ -176,18 +176,27 @@ function SOTA_OpenSyncCfgConfig()
 end;
 
 function SOTA_OnOptionAuctionTimeChanged(object)
-	SOTA_CONFIG_AuctionTime = tonumber( _G[object:GetName()]:GetValue() );
+	local value = math.floor(object:GetValue());
+	object:SetValueStep(1);
+	object:SetValue(value);
+
+	SOTA_CONFIG_AuctionTime = value;
 	
 	local valueString = "".. SOTA_CONFIG_AuctionTime;
 	if SOTA_CONFIG_AuctionTime == 0 then
 		valueString = "(No timer)";
 	end
-		
+	
 	_G[object:GetName().."Text"]:SetText(string.format("Auction Time: %s seconds", valueString))
 end
 
 function SOTA_OnOptionAuctionExtensionChanged(object)
-	SOTA_CONFIG_AuctionExtension = tonumber( _G[object:GetName()]:GetValue() );
+	local value = math.floor(object:GetValue());
+	object:SetValueStep(1);
+	object:SetValue(value);
+
+--	SOTA_CONFIG_AuctionExtension = tonumber( _G[object:GetName()]:GetValue() );
+	SOTA_CONFIG_AuctionExtension = value;
 	
 	local valueString = "".. SOTA_CONFIG_AuctionExtension;
 	if SOTA_CONFIG_AuctionExtension == 0 then
@@ -198,7 +207,11 @@ function SOTA_OnOptionAuctionExtensionChanged(object)
 end
 
 function SOTA_OnOptionDKPStringLengthChanged(object)
-	SOTA_CONFIG_DKPStringLength = tonumber( _G[object:GetName()]:GetValue() );
+	local value = math.floor(object:GetValue());
+	object:SetValueStep(1);
+	object:SetValue(value);
+
+	SOTA_CONFIG_DKPStringLength = value;
 	
 	local valueString = "".. SOTA_CONFIG_DKPStringLength;
 	if SOTA_CONFIG_DKPStringLength == 0 then
@@ -208,8 +221,14 @@ function SOTA_OnOptionDKPStringLengthChanged(object)
 	_G[object:GetName().."Text"]:SetText(string.format("DKP String Length: %s", valueString))
 end
 
+
 function SOTA_OnOptionMinimumDKPPenaltyChanged(object)
-	SOTA_CONFIG_MinimumDKPPenalty = tonumber( _G[object:GetName()]:GetValue() );
+	local valueStep = 25;
+	local value = valueStep * math.floor(object:GetValue() / valueStep);
+	object:SetValueStep(valueStep);
+	object:SetValue(value);
+
+	SOTA_CONFIG_MinimumDKPPenalty = value;
 	
 	local valueString = "".. SOTA_CONFIG_MinimumDKPPenalty;
 	if SOTA_CONFIG_MinimumDKPPenalty == 0 then
@@ -230,10 +249,15 @@ function SOTA_RefreshBossDKPValues()
 end
 
 function SOTA_OnOptionBossDKPChanged(object)
+
+	-- Since WOW 5.4 the slider API has been broken. We can circumvent this by setting and calculating the valueStep here:
+	local valueStep = 100;
+	local value = valueStep * math.floor(object:GetValue() / valueStep);
 	local slider = object:GetName();
-	local value = tonumber( _G[object:GetName()]:GetValue() );
-	local valueString = "";
-	
+	object:SetValueStep(valueStep);
+	object:SetValue(value);
+
+	local valueString = "";	
 	if slider == "FrameConfigBossDkp_20Mans" then
 		SOTA_SetBossDKPValue("20Mans", value);
 		valueString = string.format("20 mans (ZG, AQ20): %d DKP", value);
@@ -458,47 +482,35 @@ function SOTA_HandleCheckbox(checkbox)
 		--	Bid type:
 		--	If checked, then we need to uncheck others in same group:
 		if checkboxname == "FrameConfigMiscDkpMinBidStrategy0" then
-			_G["FrameConfigMiscDkpMinBidStrategy1"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy2"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy3"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy4"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy5"]:SetChecked(0);
+			_G["FrameConfigMiscDkpMinBidStrategy1"]:SetChecked();
+			_G["FrameConfigMiscDkpMinBidStrategy2"]:SetChecked();
+			_G["FrameConfigMiscDkpMinBidStrategy3"]:SetChecked();
+			_G["FrameConfigMiscDkpMinBidStrategy4"]:SetChecked();
 			SOTA_CONFIG_MinimumBidStrategy = 0;
-		elseif checkboxname == "FrameConfigBossDkpMinBidStrategy1" then
-			_G["FrameConfigMiscDkpMinBidStrategy0"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy2"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy3"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy4"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy5"]:SetChecked(0);
+		elseif checkboxname == "FrameConfigMiscDkpMinBidStrategy1" then
+			_G["FrameConfigMiscDkpMinBidStrategy0"]:SetChecked();
+			_G["FrameConfigMiscDkpMinBidStrategy2"]:SetChecked();
+			_G["FrameConfigMiscDkpMinBidStrategy3"]:SetChecked();
+			_G["FrameConfigMiscDkpMinBidStrategy4"]:SetChecked();
 			SOTA_CONFIG_MinimumBidStrategy = 1;
 		elseif checkboxname == "FrameConfigMiscDkpMinBidStrategy2" then
-			_G["FrameConfigMiscDkpMinBidStrategy0"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy1"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy3"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy4"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy5"]:SetChecked(0);
+			_G["FrameConfigMiscDkpMinBidStrategy0"]:SetChecked();
+			_G["FrameConfigMiscDkpMinBidStrategy1"]:SetChecked();
+			_G["FrameConfigMiscDkpMinBidStrategy3"]:SetChecked();
+			_G["FrameConfigMiscDkpMinBidStrategy4"]:SetChecked();
 			SOTA_CONFIG_MinimumBidStrategy = 2;
 		elseif checkboxname == "FrameConfigMiscDkpMinBidStrategy3" then
-			_G["FrameConfigMiscDkpMinBidStrategy0"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy1"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy2"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy4"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy5"]:SetChecked(0);
+			_G["FrameConfigMiscDkpMinBidStrategy0"]:SetChecked();
+			_G["FrameConfigMiscDkpMinBidStrategy1"]:SetChecked();
+			_G["FrameConfigMiscDkpMinBidStrategy2"]:SetChecked();
+			_G["FrameConfigMiscDkpMinBidStrategy4"]:SetChecked();
 			SOTA_CONFIG_MinimumBidStrategy = 3;			
 		elseif checkboxname == "FrameConfigMiscDkpMinBidStrategy4" then
-			_G["FrameConfigMiscDkpMinBidStrategy0"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy1"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy2"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy3"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy5"]:SetChecked(0);
+			_G["FrameConfigMiscDkpMinBidStrategy0"]:SetChecked();
+			_G["FrameConfigMiscDkpMinBidStrategy1"]:SetChecked();
+			_G["FrameConfigMiscDkpMinBidStrategy2"]:SetChecked();
+			_G["FrameConfigMiscDkpMinBidStrategy3"]:SetChecked();
 			SOTA_CONFIG_MinimumBidStrategy = 4;
-		elseif checkboxname == "FrameConfigMiscDkpMinBidStrategy5" then
-			_G["FrameConfigMiscDkpMinBidStrategy0"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy1"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy2"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy3"]:SetChecked(0);
-			_G["FrameConfigMiscDkpMinBidStrategy4"]:SetChecked(0);
-			SOTA_CONFIG_MinimumBidStrategy = 5;
 		end
 	end
 end

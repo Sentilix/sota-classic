@@ -199,13 +199,15 @@ function SOTA_RefreshTransactionElements()
 			end
 		end
 
-		local frame = _G["TransactionUIFrameTableListEntry"..n];
-		_G[frame:GetName().."Time"]:SetText(timestamp);
-		_G[frame:GetName().."Icon"]:SetTexture(icon);
-		_G[frame:GetName().."TID"]:SetText(tid);
-		_G[frame:GetName().."Name"]:SetText(name);
-		_G[frame:GetName().."Command"]:SetText(description);
-		_G[frame:GetName().."DKP"]:SetText(dkp);
+		local framename = "TransactionUIFrameTableListEntry"..n;
+
+		local frame = _G[framename];
+		_G[framename.."Time"]:SetText(timestamp);
+		_G[framename.."Icon"]:SetTexture(icon);
+		_G[framename.."TID"]:SetText(tid);
+		_G[framename.."Name"]:SetText(name);
+		_G[framename.."Command"]:SetText(description);
+		_G[framename.."DKP"]:SetText(dkp);
 
 		if (n > 0) and SOTA_CanReadNotes() then		
 			local color = { 128, 128, 128 };
@@ -216,7 +218,7 @@ function SOTA_RefreshTransactionElements()
 					color = SOTA_GetClassColorCodes(guildInfo[3]);
 				end
 			end
-			_G[frame:GetName().."Name"]:SetTextColor((color[1]/255), (color[2]/255), (color[3]/255), 255);
+			_G[framename.."Name"]:SetTextColor((color[1]/255), (color[2]/255), (color[3]/255), 255);
 			frame:Enable();
 		else
 			frame:Disable();
@@ -520,6 +522,8 @@ end
 --	Initalize Transaction Log UI elements
 --]]
 function SOTA_TransactionLogUIInit()
+
+
 	for n=0,SOTA_MAX_TRANSACTIONS_DISPLAYED, 1 do
 		local lgEntry = CreateFrame("Button", "$parentEntry"..n, TransactionUIFrameTableList, "SOTA_LogTemplate");
 		local dhEntry = CreateFrame("Button", "$parentEntry"..n, TransactionUIFrameDKPHistory, "SOTA_DKPTemplate");

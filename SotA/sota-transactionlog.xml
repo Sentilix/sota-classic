@@ -22,7 +22,7 @@
 					</Anchors>
 				</FontString>
 				<!-- + / - icon -->
-				<Texture name="$parentIcon" file="">
+				<Texture name="$parentIcon" parentKey="icon" file="Interface\ICONS\Spell_ChargePositive">
 					<Size>
 						<AbsDimension x="16" y="16"/>
 					</Size>
@@ -78,7 +78,7 @@
 		</Layers>
 		<Scripts>
 			<OnClick>
-				PlaySound("igMainMenuOptionCheckBoxOn")
+				PlaySound(882, "Master")
 				SOTA_OnTransactionLogClick(self)
 			</OnClick>
 			<OnEnter>
@@ -117,7 +117,7 @@
 					</Anchors>
 				</FontString>
 				<!-- + / - icon -->
-				<Texture name="$parentIcon" file="">
+				<Texture name="$parentIcon" parentKey="icon" file="Interface\ICONS\Spell_ChargeNegative">
 					<Size>
 						<AbsDimension x="16" y="16"/>
 					</Size>
@@ -147,14 +147,14 @@
 						<AbsDimension x="50" y="16"/>
 					</Size>
 					<Anchors>
-						<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentCommand"/>
+						<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentName"/>
 					</Anchors>
 				</FontString>
 			</Layer>
 		</Layers>
 		<Scripts>
 			<OnClick>
-				PlaySound("igMainMenuOptionCheckBoxOn")
+				PlaySound(882, "Master")
 				SOTA_OnDKPHistoryClick(self)
 			</OnClick>
 			<OnEnter>
@@ -223,7 +223,7 @@
 		</Layers>
 		<Scripts>
 			<OnClick>
-				PlaySound("igMainMenuOptionCheckBoxOn")
+				PlaySound(882, "Master")
 				SOTA_OnTransactionLogDetailPlayer(self);
 			</OnClick>
 			<OnEnter>
@@ -257,7 +257,7 @@
 		</Layers>
 		<Scripts>
 			<OnClick>
-				PlaySound("igMainMenuOptionCheckBoxOn")
+				PlaySound(882, "Master")
 				SOTA_OnTransactionLogDetailPlayer(self);
 			</OnClick>
 			<OnEnter>

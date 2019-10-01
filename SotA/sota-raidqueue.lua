@@ -594,7 +594,7 @@ function SOTA_Call_ListQueue(receiver)
 end;
 
 
-function SOTA_OnQueuedPlayerClick(object, buttonname)
+function SOTA_OnQueuedPlayerClick(object, button)
 	local msgID = object:GetID();
 	
 	local playername = _G[object:GetName().."Name"]:GetText();
@@ -625,7 +625,7 @@ function SOTA_OnQueuedPlayerClick(object, buttonname)
 	end;
 
 	-- Single player removal / invitation:
-	if buttonname == "RightButton" then
+	if button == "RightButton" then
 		StaticPopupDialogs["SOTA_POPUP_REMOVE_PLAYER"] = {
 			text = string.format("Remove %s from the raid queue?", playername),
 			button1 = "Yes",
