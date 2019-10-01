@@ -48,13 +48,6 @@
     <Content Include="sota-raidqueue.xml">
       <SubType>Frame</SubType>
     </Content>
-    <Content Include="sota-titanpanel.lua">
-      <SubType>Code</SubType>
-      <DependentUpon>sota-titanpanel.xml</DependentUpon>
-    </Content>
-    <Content Include="sota-titanpanel.xml">
-      <SubType>Frame</SubType>
-    </Content>
     <Content Include="SotA.toc">
       <SubType>TableOfContents</SubType>
     </Content>
