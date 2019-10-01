@@ -1,6 +1,6 @@
 --[[
 --	SotA - State of the Art DKP Addon
---	By Mimma <VanillaGaming.org>
+--	By Mimma <EU-Pyrewood Village>
 --
 --	Unit: sota-raidqueue.lua
 --	The Raid Queue contains a list of people currently in queue for the raid.

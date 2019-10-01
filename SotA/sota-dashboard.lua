@@ -1,6 +1,6 @@
 --[[
 --	SotA - State of the Art DKP Addon
---	By Mimma <VanillaGaming.org>
+--	By Mimma <EU-Pyrewood Village>
 --
 --	Unit: sota-dashboard.lua
 --	This unit displays a minimal UI to control SotA operation.
@@ -613,8 +613,6 @@ function SOTA_SetMasterState(mastername, masterstate)
 	if not mastername then
 		mastername = "(none)";
 	end
-
-	--echo(string.format("Master: %s, state= %d", mastername, CLIENT_STATE));
 
 	_G["SOTA_MasterName"]:SetText(mastername);
 end

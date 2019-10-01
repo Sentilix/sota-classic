@@ -171,7 +171,6 @@
 				<Layers>
 					<Layer level="ARTWORK">
 						<FontString inherits="GameFontNormal" text="SOTA Master:">
-							s
 							<Anchors>
 								<Anchor point="LEFT">
 									<Offset>
@@ -188,7 +187,7 @@
 									</Offset>
 								</Anchor>
 							</Anchors>
-							<Color r="1" g="1" b="1" a="" />
+							<Color r="1" g="1" b="1" a="1" />
 						</FontString>
 					</Layer>
 				</Layers>

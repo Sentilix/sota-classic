@@ -1,6 +1,6 @@
 --[[
 --	SotA - State of the Art DKP Addon
---	By Mimma <VanillaGaming.org>
+--	By Mimma <EU-Pyrewood Village>
 --
 --	Unit: sota-options.lua
 --	This holds the options (configuration) dialogue of SotA plus

@@ -1,6 +1,6 @@
 --[[
 --	SotA - State of the Art DKP Addon
---	By Mimma <VanillaGaming.org>
+--	By Mimma <EU-Pyrewood Village>
 --
 --	Unit: sota-core.lua
 --	This unit contains the core functionality such as DKP handling,
@@ -11,7 +11,7 @@
 SOTA_MESSAGE_PREFIX				= "SOTAv1"
 SOTA_ID							= "SOTA"
 SOTA_TITLE						= "SotA"
-SOTA_TITAN_TITLE				= "SotA - DKP Distribution"
+--SOTA_TITAN_TITLE				= "SotA - DKP Distribution"
 
 local SOTA_DEBUG_ENABLED		= false;
 
