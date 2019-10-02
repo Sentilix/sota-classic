@@ -132,20 +132,20 @@ SOTA_CONFIG_VersionDate			= nil;	-- Date of last change!
 -- Pane 2:
 SOTA_CONFIG_BossDKP				= { }
 local SOTA_CONFIG_DEFAULT_BossDKP = {
-	{ "20Mans",			200 },
-	{ "MoltenCore",		600 },
-	{ "Onyxia",			600 },
-	{ "BlackwingLair",	600 },
-	{ "AQ40",			800 },
-	{ "Naxxramas",		1200 },
-	{ "WorldBosses",	400 }
+	{ "20Mans",			 500 },
+	{ "MoltenCore",		1000 },
+	{ "Onyxia",			1000 },
+	{ "BlackwingLair",	2000 },
+	{ "AQ40",			3000 },
+	{ "Naxxramas",		4000 },
+	{ "WorldBosses",	2000 }
 }
 -- Pane 3:
 SOTA_CONFIG_Modified			= false;	-- If TRUE, then config number has been updated; FALSE: not.
 SOTA_CONFIG_UseGuildNotes		= 0;
 SOTA_CONFIG_MinimumBidStrategy	= 1;	-- 0: No strategy, 1: +10 DKP, 2: +10 %, 3: GGC rules, 4: DejaVu rules, 5: Custom rules
 SOTA_CONFIG_DKPStringLength		= 5;
-SOTA_CONFIG_MinimumDKPPenalty	= 50;	-- Minimum DKP withdrawn when doing percent DKP
+SOTA_CONFIG_MinimumDKPPenalty	= 100;	-- Minimum DKP withdrawn when doing percent DKP
 -- History: (basically a copy of the transaction log, but not shared with others)
 SOTA_HISTORY_DKP				= { }	-- { timestamp, tid, author, description, state, { names, dkp } }
 

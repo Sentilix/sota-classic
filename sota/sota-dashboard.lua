@@ -1321,7 +1321,8 @@ end
 
 function SOTA_OnEvent(event, ...)
 	if (event == "ADDON_LOADED") then
-		if arg1 == SOTA_TITLE then
+		local addonname = ...;
+		if addonname == string.lower(SOTA_TITLE) then
 		    SOTA_InitializeConfigSettings();
 		end
 	elseif (event == "CHAT_MSG_GUILD") then
