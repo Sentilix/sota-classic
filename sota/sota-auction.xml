@@ -117,12 +117,14 @@
 								</Offset>
 							</Anchor>
 						</Anchors>
-						<!--
 						<Layers>
 							<Layer level="ARTWORK">
-								<Texture name="$parentTexture" file="">
+								<Texture name="$parentTexture" parentKey="icon" file="Interface\ICONS\Spell_ChargePositive">
+									<Size>
+										<AbsDimension x="64" y="64" />
+									</Size>
 									<Anchors>
-										<Anchor point="TOP" relativeTo="$parentHeaderTexture">
+										<Anchor point="TOP">
 											<Offset>
 												<AbsDimension x="0" y="-14" />
 											</Offset>
@@ -131,7 +133,6 @@
 								</Texture>
 							</Layer>
 						</Layers>
-						-->
 					</Frame>
 				</Frames>
 				<Layers>

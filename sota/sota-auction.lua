@@ -75,7 +75,7 @@ function SOTA_StartAuction(itemLink)
 		return;
 	end
 
-	local itemName, _, itemQuality, _, _, _, _, _, itemTexture = GetItemInfo(itemId);	
+	local itemName, _, itemQuality, _, _, _, _, _, _, itemTexture = GetItemInfo(itemId);	
 	
 	local frame = _G["AuctionUIFrameItem"];
 	if frame then

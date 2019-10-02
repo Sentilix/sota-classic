@@ -1199,13 +1199,7 @@ end
 function SOTA_InitializeUI()
 	SOTA_AuctionUIInit();
 	SOTA_RaidQueueUIInit()
-
-	if SOTA_TransactionLogUIInit then
-		SOTA_TransactionLogUIInit();
-	else
-		-- Problem in Classic: Why isnt this available?
-		echo("***CLASSIC*** Not found: SOTA_TransactionLogUIInit");
-	end	
+	SOTA_TransactionLogUIInit();
 end
 
 
