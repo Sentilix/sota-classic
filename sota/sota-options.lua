@@ -531,13 +531,13 @@ function SOTA_OnEventMessageClick(object)
 --	echo("** Event: "..event..", Channel: "..channel..", Message: "..message);
 
 	local frame = _G["FrameEventEditor"];
-	_G(frame:GetName().."Message"):SetText(message);
+	_G[frame:GetName().."Message"]:SetText(message);
 
-	_G[frame:GetName().."CheckbuttonRW"]:SetChecked(0);		
-	_G[frame:GetName().."CheckbuttonRaid"]:SetChecked(0);		
-	_G[frame:GetName().."CheckbuttonGuild"]:SetChecked(0);		
-	_G[frame:GetName().."CheckbuttonYell"]:SetChecked(0);		
-	_G[frame:GetName().."CheckbuttonSay"]:SetChecked(0);		
+	_G[frame:GetName().."CheckbuttonRW"]:SetChecked();		
+	_G[frame:GetName().."CheckbuttonRaid"]:SetChecked();		
+	_G[frame:GetName().."CheckbuttonGuild"]:SetChecked();		
+	_G[frame:GetName().."CheckbuttonYell"]:SetChecked();		
+	_G[frame:GetName().."CheckbuttonSay"]:SetChecked();		
 
 	if channel == 1 then
 		_G[frame:GetName().."CheckbuttonRW"]:SetChecked(1);		
@@ -562,38 +562,38 @@ function SOTA_OnEventCheckboxClick(checkbox)
 
 	if checkboxname == "FrameEventEditorCheckbuttonRW" then
 		if checkbox:GetChecked() then
-			_G[frame:GetName().."CheckbuttonRaid"]:SetChecked(0);
-			_G[frame:GetName().."CheckbuttonGuild"]:SetChecked(0);
-			_G[frame:GetName().."CheckbuttonYell"]:SetChecked(0);
-			_G[frame:GetName().."CheckbuttonSay"]:SetChecked(0);
+			_G[frame:GetName().."CheckbuttonRaid"]:SetChecked();
+			_G[frame:GetName().."CheckbuttonGuild"]:SetChecked();
+			_G[frame:GetName().."CheckbuttonYell"]:SetChecked();
+			_G[frame:GetName().."CheckbuttonSay"]:SetChecked();
 		end;
 	elseif checkboxname == "FrameEventEditorCheckbuttonRaid" then
 		if checkbox:GetChecked() then
-			_G[frame:GetName().."CheckbuttonRW"]:SetChecked(0);		
-			_G[frame:GetName().."CheckbuttonGuild"]:SetChecked(0);		
-			_G[frame:GetName().."CheckbuttonYell"]:SetChecked(0);		
-			_G[frame:GetName().."CheckbuttonSay"]:SetChecked(0);		
+			_G[frame:GetName().."CheckbuttonRW"]:SetChecked();		
+			_G[frame:GetName().."CheckbuttonGuild"]:SetChecked();		
+			_G[frame:GetName().."CheckbuttonYell"]:SetChecked();		
+			_G[frame:GetName().."CheckbuttonSay"]:SetChecked();		
 		end;
 	elseif checkboxname == "FrameEventEditorCheckbuttonGuild" then
 		if checkbox:GetChecked() then
-			_G[frame:GetName().."CheckbuttonRW"]:SetChecked(0);		
-			_G[frame:GetName().."CheckbuttonRaid"]:SetChecked(0);		
-			_G[frame:GetName().."CheckbuttonYell"]:SetChecked(0);		
-			_G[frame:GetName().."CheckbuttonSay"]:SetChecked(0);		
+			_G[frame:GetName().."CheckbuttonRW"]:SetChecked();		
+			_G[frame:GetName().."CheckbuttonRaid"]:SetChecked();		
+			_G[frame:GetName().."CheckbuttonYell"]:SetChecked();		
+			_G[frame:GetName().."CheckbuttonSay"]:SetChecked();		
 		end;
 	elseif checkboxname == "FrameEventEditorCheckbuttonYell" then
 		if checkbox:GetChecked() then
-			_G[frame:GetName().."CheckbuttonRW"]:SetChecked(0);		
-			_G[frame:GetName().."CheckbuttonRaid"]:SetChecked(0);		
-			_G[frame:GetName().."CheckbuttonGuild"]:SetChecked(0);		
-			_G[frame:GetName().."CheckbuttonSay"]:SetChecked(0);		
+			_G[frame:GetName().."CheckbuttonRW"]:SetChecked();		
+			_G[frame:GetName().."CheckbuttonRaid"]:SetChecked();		
+			_G[frame:GetName().."CheckbuttonGuild"]:SetChecked();		
+			_G[frame:GetName().."CheckbuttonSay"]:SetChecked();		
 		end;
 	elseif checkboxname == "FrameEventEditorCheckbuttonSay" then
 		if checkbox:GetChecked() then
-			_G[frame:GetName().."CheckbuttonRW"]:SetChecked(0);		
-			_G[frame:GetName().."CheckbuttonRaid"]:SetChecked(0);		
-			_G[frame:GetName().."CheckbuttonGuild"]:SetChecked(0);		
-			_G[frame:GetName().."CheckbuttonYell"]:SetChecked(0);		
+			_G[frame:GetName().."CheckbuttonRW"]:SetChecked();		
+			_G[frame:GetName().."CheckbuttonRaid"]:SetChecked();		
+			_G[frame:GetName().."CheckbuttonGuild"]:SetChecked();		
+			_G[frame:GetName().."CheckbuttonYell"]:SetChecked();		
 		end;
 	end;
 end;
