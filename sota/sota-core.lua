@@ -337,17 +337,18 @@ end
 
 
 function SOTA_GetUnitIDFromGroup(nameAndRealm)
-	local playername = SOTA_GetPlayerName(nameAndRealm);
-	playerName = SOTA_UCFirst(playerName);
+	playerName = SOTA_UCFirst(SOTA_GetPlayerName(nameAndRealm));
 
-	if SOTA_IsInRaid(false) then
-		for n=1, GetNumGroupMembers(), 1 do
+	local groupsize = GetNumGroupMembers();
+
+	if IsInRaid() then
+		for n=1, groupsize, 1 do
 			if UnitName("raid"..n) == playerName then
 				return "raid"..n;
 			end
 		end
 	else
-		for n=1, GetNumPartyMembers(), 1 do
+		for n=1, groupsize, 1 do
 			if UnitName("party"..n) == playerName then
 				return "party"..n;
 			end
@@ -529,7 +530,7 @@ function SOTA_GetGuildPlayerInfo(nameAndRealm)
 end
 
 
-function SOTA_OnRaidRosterUpdate(event, arg1, arg2, arg3, arg4, arg5)
+function SOTA_OnRaidRosterUpdate(event, ...)
 	RaidRosterLazyUpdate = true;
 
 	SOTA_RefreshRaidQueue();

@@ -44,7 +44,7 @@
 		</Layers>
 		<Scripts>
 			<OnClick>
-				PlaySound("igMainMenuOptionCheckBoxOn")
+				PlaySound(882, "Master")
 				SOTA_OnBidClick(self)
 			</OnClick>
 			<OnEnter>

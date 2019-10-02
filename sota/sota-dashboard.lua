@@ -1289,6 +1289,8 @@ function SOTA_OnChatWhisper(event, ...)
 	if not message then
 		return
 	end
+
+	sender = SOTA_GetPlayerName(sender);
 	
 	local _, _, cmd = string.find(message, "(%a+)");	
 	if not cmd then
@@ -1334,9 +1336,9 @@ function SOTA_OnEvent(event, ...)
 	elseif (event == "CHAT_MSG_ADDON") then
 		SOTA_OnChatMsgAddon(event, ...)
 	elseif (event == "GUILD_ROSTER_UPDATE") then
-		SOTA_OnGuildRosterUpdate(event, arg1, arg2, arg3, arg4, arg5)
+		SOTA_OnGuildRosterUpdate(event, ...)
 	elseif (event == "RAID_ROSTER_UPDATE") then
-		SOTA_OnRaidRosterUpdate(event, arg1, arg2, arg3, arg4, arg5)
+		SOTA_OnRaidRosterUpdate(event, ...)
 	end
 end
 
