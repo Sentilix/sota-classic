@@ -793,7 +793,7 @@ end;
 
 function SOTA_DisplayDKPDetails(object,showInRaidChat)
 	local msgID = object:GetID();
-	local timestamp = _[object:GetName().."Time"]:GetText();
+	local timestamp = _G[object:GetName().."Time"]:GetText();
 	local name = _G[object:GetName().."Name"]:GetText();
 
 	local entry, info, dkp;
