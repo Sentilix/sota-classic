@@ -685,7 +685,7 @@
 				</Backdrop>
 				<Scripts>
 					<OnVerticalScroll>
-						FauxScrollFrame_OnVerticalScroll(20, SOTA_UpdateTextList);
+						FauxScrollFrame_OnVerticalScroll(self, offset, 20, SOTA_UpdateTextList);
 					</OnVerticalScroll>
 					<OnShow>
 						SOTA_UpdateTextList()
