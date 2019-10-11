@@ -11,7 +11,6 @@
 SOTA_MESSAGE_PREFIX				= "SOTAv1"
 SOTA_ID							= "SOTA"
 SOTA_TITLE						= "SotA"
---SOTA_TITAN_TITLE				= "SotA - DKP Distribution"
 
 local SOTA_DEBUG_ENABLED		= false;
 
@@ -150,7 +149,7 @@ SOTA_CONFIG_MinimumDKPPenalty	= 100;	-- Minimum DKP withdrawn when doing percent
 SOTA_HISTORY_DKP				= { }	-- { timestamp, tid, author, description, state, { names, dkp } }
 
 -- Pane 4: (Messages)
--- Pane 5: (Bid rules)
+-- (No data)
 
 
 
@@ -609,10 +608,10 @@ function SOTA_RefreshRaidRoster()
 end
 
 
+
 --
 --	DKP handling
 --
-
 
 function SOTA_GetBossDKPValue(instancename)
 	local bossDkpList = SOTA_GetBossDKPList();

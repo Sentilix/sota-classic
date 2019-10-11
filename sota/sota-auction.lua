@@ -116,46 +116,14 @@ function SOTA_CheckAuctionState()
 		local secs = SOTA_GetSecondCounter();
 		
 		if secs == SOTA_CONFIG_AuctionTime then
---			publicEcho(string.format("Auction open for %s", AuctionedItemLink));
---			publicEcho(string.format("/w %s bid <your bid>", UnitName("Player")))
---			publicEcho(string.format("Minimum bid: %d DKP", SOTA_GetMinimumBid()));
-
-			--publicEcho(SOTA_getConfigurableMessage(SOTA_MSG_OnOpen, AuctionedItemLink, SOTA_GetMinimumBid()));
-			--publicEcho(SOTA_getConfigurableMessage(SOTA_MSG_OnAnnounceBid, AuctionedItemLink, SOTA_GetMinimumBid()));
-			--publicEcho(SOTA_getConfigurableMessage(SOTA_MSG_OnAnnounceMinBid, AuctionedItemLink, SOTA_GetMinimumBid()));
 			SOTA_EchoEvent(SOTA_MSG_OnOpen, AuctionedItemLink, SOTA_GetMinimumBid());
 			SOTA_EchoEvent(SOTA_MSG_OnAnnounceBid, AuctionedItemLink, SOTA_GetMinimumBid());
 			SOTA_EchoEvent(SOTA_MSG_OnAnnounceMinBid, AuctionedItemLink, SOTA_GetMinimumBid());
 		end
 
---[[
-local SOTA_MSG_AUCTION_auctionOpened		= "AUCTION_auctionOpened";
-local SOTA_MSG_AUCTION_announceBid			= "AUCTION_announceBid";
-local SOTA_MSG_AUCTION_minimumBid			= "AUCTION_minimumBid";
-local SOTA_MSG_AUCTION_10secondsLeft		= "AUCTION_10secondsLeft";
-local SOTA_MSG_AUCTION_3secondsLeft			= "AUCTION_3secondsLeft";
-local SOTA_MSG_AUCTION_2secondsLeft			= "AUCTION_2secondsLeft";
-local SOTA_MSG_AUCTION_1secondLeft			= "AUCTION_1secondsLeft";
-local SOTA_MSG_AUCTION_bidMainSpec			= "AUCTION_bidMainspec";
-local SOTA_MSG_AUCTION_bidOffspec			= "AUCTION_bidOffspec";
-local SOTA_MSG_AUCTION_bidMaxMainspec		= "AUCTION_bidMaxMainspec";
-local SOTA_MSG_AUCTION_bidMaxOffspec		= "AUCTION_bidMaxOffspec";
-local SOTA_MSG_AUCTION_complete				= "AUCTION_complete";
-local SOTA_MSG_AUCTION_paused				= "AUCTION_paused";
-local SOTA_MSG_AUCTION_resumed				= "AUCTION_resumed";
-local SOTA_MSG_AUCTION_ended				= "AUCTION_ended";
-local SOTA_MSG_AUCTION_cancelled			= "AUCTION_cancelled";
---]]
-
-
 		if SOTA_CONFIG_AuctionTime > 0 then
 			if secs == 10 then
---				publicEcho(string.format("10 seconds left for %s", AuctionedItemLink));
---				publicEcho(string.format("/w %s bid <your bid>", UnitName("Player")));
-				--publicEcho(SOTA_getConfigurableMessage(SOTA_MSG_On10SecondsLeft, AuctionedItemLink));
-				--publicEcho(SOTA_getConfigurableMessage(SOTA_MSG_OnAnnounceBid, AuctionedItemLink));
 				SOTA_EchoEvent(SOTA_MSG_On10SecondsLeft, AuctionedItemLink);
---				SOTA_EventEcho(SOTA_MSG_OnAnnounceBid, AuctionedItemLink);
 			end
 
 			if secs == 9 then
@@ -300,30 +268,6 @@ function SOTA_HandlePlayerBid(sender, message)
 	local bidderRank  = playerInfo[4];		-- This rank is by NAME
 	local bidderRIdx  = playerInfo[7];		-- This rank is by NUMBER!
 	
-	-- Check bidding using Custom Bidding Strategy.
-	-- This does currently NOT check the min. bid, but it handles player ranks.
-	--[[
-	if SOTA_CONFIG_MinimumBidStrategy == 5 then
-		local variables = { }
-		variables['bid'] = dkp;
-		variables['min'] = hiBid;
-		variables['bidrank'] = hiRankIndex;		--Rank for the current highest bid (idx)
-		variables['currank'] = bidderRIdx;		--Rank for the player bidding (idx); Lower = better.
-
-		local ruleInfo = SOTA_ParseRules(variables);
-
-		if(ruleInfo['VALID']) and (ruleInfo['RESULT']) then
-			if(ruleInfo['RULETYPE'] == SOTA_RULETYPE_SUCCESS) then
-				-- A valid rule was found; continue with the bidding!
-			else
-				SOTA_whisper(sender, ruleInfo['MESSAGE']);
-				return;
-			end;
-		end;
-	end;
-	--]]
-
-
 	-- Check user at least did bid more than last bidder:
 	if(dkp > hiBid) then
 		-- He did, but he also bid less than the minimum DKP:
@@ -351,22 +295,14 @@ function SOTA_HandlePlayerBid(sender, message)
 	
 	if userWentAllIn then
 		if bidtype == 2 then
-			--publicEcho(string.format("%s went all in (%d) Off-spec for %s", sender, dkp, AuctionedItemLink));
-			--publicEcho(SOTA_getConfigurableMessage(SOTA_MSG_OnOffspecMaxBid, AuctionedItemLink, dkp, sender, bidderRank));
 			SOTA_EchoEvent(SOTA_MSG_OnOffspecMaxBid, AuctionedItemLink, dkp, sender, bidderRank);
 		else
-			--publicEcho(string.format("%s (%s) went all in (%d DKP) for %s", sender, bidderRank, dkp, AuctionedItemLink));
-			--publicEcho(SOTA_getConfigurableMessage(SOTA_MSG_OnMainspecMaxBid, AuctionedItemLink, dkp, sender, bidderRank));
 			SOTA_EchoEvent(SOTA_MSG_OnMainspecMaxBid, AuctionedItemLink, dkp, sender, bidderRank);
 		end;
 	else
 		if bidtype == 2 then
-			--publicEcho(string.format("%s is bidding %d Off-spec for %s", sender, dkp, AuctionedItemLink));
-			--publicEcho(SOTA_getConfigurableMessage(SOTA_MSG_OnOffspecBid, AuctionedItemLink, dkp, sender, bidderRank));
 			SOTA_EchoEvent(SOTA_MSG_OnOffspecBid, AuctionedItemLink, dkp, sender, bidderRank);
 		else
-			--publicEcho(string.format("%s (%s) is bidding %d DKP for %s", sender, bidderRank, dkp, AuctionedItemLink));
-			--publicEcho(SOTA_getConfigurableMessage(SOTA_MSG_OnMainspecBid, AuctionedItemLink, dkp, sender, bidderRank));
 			SOTA_EchoEvent(SOTA_MSG_OnMainspecBid, AuctionedItemLink, dkp, sender, bidderRank);
 		end;
 	end;
@@ -473,8 +409,6 @@ function SOTA_AcceptBid(playername, bid)
 	
 		AuctionUIFrame:Hide();
 		
-		--publicEcho(string.format("%s sold to %s for %d DKP.", AuctionedItemLink, playername, bid));
-		--publicEcho(SOTA_getConfigurableMessage(SOTA_MSG_OnComplete, AuctionedItemLink, bid, playername));
 		SOTA_EchoEvent(SOTA_MSG_OnComplete, AuctionedItemLink, bid, playername);
 		
 		SOTA_SubtractPlayerDKP(playername, bid);		
@@ -688,8 +622,6 @@ function SOTA_CancelSelectedPlayerBid()
 		if bid == 0 then
 			bid = SOTA_GetMinimumBid();
 		end
-		--publicEcho(string.format("Minimum bid: %d DKP", bid));
-		--publicEcho(SOTA_getConfigurableMessage(SOTA_MSG_OnAnnounceMinBid, AuctionedItemLink));
 		SOTA_EchoEvent(SOTA_MSG_OnAnnounceMinBid, AuctionedItemLink);
 	end
 end
@@ -705,15 +637,11 @@ function SOTA_PauseAuction()
 	
 	if state == STATE_AUCTION_RUNNING then
 		SOTA_SetAuctionState(STATE_AUCTION_PAUSED, secs);
-		--publicEcho("Auction has been Paused");
-		--publicEcho(SOTA_getConfigurableMessage(SOTA_MSG_OnPause, AuctionedItemLink));
 		SOTA_EchoEvent(SOTA_MSG_OnPause, AuctionedItemLink);
 	end
 	
 	if state == STATE_AUCTION_PAUSED then
 		SOTA_SetAuctionState(STATE_AUCTION_RUNNING, secs + SOTA_CONFIG_AuctionExtension);
-		--publicEcho("Auction has been Resumed");
-		--publicEcho(SOTA_getConfigurableMessage(SOTA_MSG_OnResume, AuctionedItemLink));
 		SOTA_EchoEvent(SOTA_MSG_OnResume, AuctionedItemLink);
 	end
 
@@ -728,8 +656,6 @@ end
 function SOTA_FinishAuction()
 	local state = SOTA_GetAuctionState();
 	if state == STATE_AUCTION_RUNNING or state == STATE_AUCTION_PAUSED then
-		--publicEcho(string.format("Auction for %s is over", AuctionedItemLink));
-		--publicEcho(SOTA_getConfigurableMessage(SOTA_MSG_OnClose, AuctionedItemLink));
 		SOTA_EchoEvent(SOTA_MSG_OnClose, AuctionedItemLink);
 
 		SOTA_SetAuctionState(STATE_AUCTION_COMPLETE);
@@ -756,8 +682,6 @@ function SOTA_CancelAuction()
 	if state == STATE_AUCTION_RUNNING or state == STATE_AUCTION_PAUSED then
 		IncomingBidsTable = { }
 		SOTA_SetAuctionState(STATE_AUCTION_NONE);
-		--publicEcho("Auction was Cancelled");		
-		--publicEcho(SOTA_getConfigurableMessage(SOTA_MSG_OnCancel, AuctionedItemLink));
 		SOTA_EchoEvent(SOTA_MSG_OnCancel, AuctionedItemLink);
 	end
 	
