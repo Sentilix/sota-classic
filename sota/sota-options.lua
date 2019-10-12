@@ -262,7 +262,7 @@ function SOTA_OnOptionBossDKPChanged(object)
 		SOTA_SetBossDKPValue("20Mans", value);
 		valueString = string.format("20 mans (ZG, AQ20): %d DKP", value);
 	elseif slider == "FrameConfigBossDkp_MoltenCore" then
-		SOTA_SetBossDKPValue("Molten Core", value);
+		SOTA_SetBossDKPValue("MoltenCore", value);
 		valueString = string.format("Molten Core: %d DKP", value);
 	elseif slider == "FrameConfigBossDkp_Onyxia" then
 		SOTA_SetBossDKPValue("Onyxia", value);

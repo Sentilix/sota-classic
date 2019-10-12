@@ -1,3 +1,13 @@
+SotA Classic:
+
+0.5.0: First release
+
+0.5.1:
+* Bugfix: Molten Core DKP value fixed
+
+
+
+
 SotA - State of the Art
 
 
