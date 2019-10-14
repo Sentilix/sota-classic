@@ -528,6 +528,16 @@ function SOTA_GetGuildPlayerInfo(nameAndRealm)
 	return nil;
 end
 
+--[[
+	Called when a player (a dkp officer) leaves raid.
+	We need to clear local history and raid roster.
+--]]
+function SOTA_OnRaidLeave(event, ...)
+	RaidRosterTable = { };
+	SOTA_RaidQueue = { };
+	SOTA_transactionLog = { };
+end;
+
 
 function SOTA_OnRaidRosterUpdate(event, ...)
 	RaidRosterLazyUpdate = true;

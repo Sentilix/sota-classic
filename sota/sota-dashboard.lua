@@ -1333,6 +1333,8 @@ function SOTA_OnEvent(event, ...)
 		SOTA_OnGuildRosterUpdate(event, ...)
 	elseif (event == "RAID_ROSTER_UPDATE") then
 		SOTA_OnRaidRosterUpdate(event, ...)
+	elseif (event == "GROUP_LEFT") then
+		SOTA_OnRaidLeave(event, ...);
 	end
 end
 
@@ -1349,6 +1351,7 @@ function SOTA_OnLoad()
 	SOTAEventFrame:RegisterEvent("CHAT_MSG_RAID_LEADER");
 	SOTAEventFrame:RegisterEvent("CHAT_MSG_WHISPER");
 	SOTAEventFrame:RegisterEvent("CHAT_MSG_ADDON");
+	SOTAEventFrame:RegisterEvent("GROUP_LEFT");
 
 	SOTA_SetAuctionState(STATE_NONE);
 	SOTA_RefreshRaidRoster();
