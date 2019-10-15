@@ -225,6 +225,10 @@ end
 --	Misc. utility functions:
 --]]
 function SOTA_GetPlayerName(nameAndRealm)
+	if not nameAndRealm then
+		return '';
+	end;
+	
 	local _, _, name = string.find(nameAndRealm, "([^-]*)-%s*");
 	if not name then
 		name = nameAndRealm;
@@ -472,34 +476,35 @@ function SOTA_RefreshGuildRoster()
 		-- Since we are in the same guild, we can safely assume the player in question is <playername>-<realmname>.
 		-- So therefore just remove server name:
 		local name = SOTA_GetPlayerName(nameAndRealm);
+		if name ~= "" then
+			if not zone then
+				zone = "";
+			end
 
-		if not zone then
-			zone = "";
-		end
+			local isOnline = 0;
+			if online then 
+				isOnline = 1; 
+			end;
 
-		local isOnline = 0;
-		if online then 
-			isOnline = 1; 
-		end;
-
-		if SOTA_CONFIG_UseGuildNotes == 1 then		
-			note = publicnote
-		else
-			note = officernote
-		end
+			if SOTA_CONFIG_UseGuildNotes == 1 then		
+				note = publicnote
+			else
+				note = officernote
+			end
 		
-		if not note or note == "" then
-			note = "<0>";
-		end
+			if not note or note == "" then
+				note = "<0>";
+			end
 				
-		local _, _, dkp = string.find(note, "<(-?%d*)>")
-		if not dkp or not tonumber(dkp) then
-			dkp = 0;
-		end
+			local _, _, dkp = string.find(note, "<(-?%d*)>")
+			if not dkp or not tonumber(dkp) then
+				dkp = 0;
+			end
 		
-		--echo(string.format("Added %s (%d)", name, online));
+			--echo(string.format("Added %s (%d)", name, online));
 		
-		NewGuildRosterTable[n] = { name, (1 * dkp), class, rank, isOnline, zone, rankIndex };
+			NewGuildRosterTable[n] = { name, (1 * dkp), class, rank, isOnline, zone, rankIndex };
+		end;
 	end
 	
 	GuildRosterTable = NewGuildRosterTable;
