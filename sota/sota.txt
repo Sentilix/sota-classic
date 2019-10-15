@@ -5,6 +5,7 @@ SotA Classic:
 0.5.1:
 * Bugfix: Molten Core DKP value fixed
 * Bugfix: RaidRoster and transaction log are now cleared after leaving the raid.
+* Bugfix: GuildRoster updates fires a lua bug if a character joined a guild while event ran!
 
 
 
