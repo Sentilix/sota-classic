@@ -1070,28 +1070,29 @@ function SOTA_RequestUpdateConfigVersion()
 	addonEcho("TX_CFGSYNCREQ##");
 end;
 
+
 --[[
 --	Return current Cfg version to [sender]
 --]]
-function SOTA_HandleTXConfigSyncRequest(message, sender)
-	if not SOTA_CONFIG_VersionNumber then
-		SOTA_CONFIG_VersionNumber = -1;
-	end;
-	if not SOTA_CONFIG_VersionDate then
-		SOTA_CONFIG_VersionDate = "nil";
-	end;
-
-	addonEcho("RX_CFGSYNCREQ#"..SOTA_CONFIG_VersionNumber..","..SOTA_CONFIG_VersionDate.."#"..sender);
-end;
-
-function SOTA_HandleRXConfigSyncRequest(message, sender)
-	echo("In SOTA_HandleRXConfigSyncRequest");
-
-	local _, _, senderVersion, senderDate = string.find(message, "([^,]*),([^,]*)")
-
-	-- TODO: Add this message to list of known versions:
-	echo(string.format("Sender=%s, version=%s, date=%s", sender, senderVersion, senderDate));
-end;
+--function SOTA_HandleTXConfigSyncRequest(message, sender)
+--	if not SOTA_CONFIG_VersionNumber then
+--		SOTA_CONFIG_VersionNumber = -1;
+--	end;
+--	if not SOTA_CONFIG_VersionDate then
+--		SOTA_CONFIG_VersionDate = "nil";
+--	end;
+--
+--	addonEcho("RX_CFGSYNCREQ#"..SOTA_CONFIG_VersionNumber..","..SOTA_CONFIG_VersionDate.."#"..sender);
+--end;
+--
+--function SOTA_HandleRXConfigSyncRequest(message, sender)
+--	echo("In SOTA_HandleRXConfigSyncRequest");
+--
+--	local _, _, senderVersion, senderDate = string.find(message, "([^,]*),([^,]*)")
+--
+--	-- TODO: Add this message to list of known versions:
+--	echo(string.format("Sender=%s, version=%s, date=%s", sender, senderVersion, senderDate));
+--end;
 
 
 
@@ -1148,10 +1149,10 @@ function SOTA_OnChatMsgAddon(event, ...)
 			SOTA_HandleTXSyncRaidQueueInit(message, senderName)
 		elseif cmd == "RX_SYNCRQINIT" then
 			SOTA_HandleRXSyncRaidQueueInit(message, senderName)
-		elseif cmd == "TX_CFGSYNCREQ" then
-			SOTA_HandleTXConfigSyncRequest(message, senderName)
-		elseif cmd == "RX_CFGSYNCREQ" then
-			SOTA_HandleRXConfigSyncRequest(message, senderName)
+--		elseif cmd == "TX_CFGSYNCREQ" then
+--			SOTA_HandleTXConfigSyncRequest(message, senderName)
+--		elseif cmd == "RX_CFGSYNCREQ" then
+--			SOTA_HandleRXConfigSyncRequest(message, senderName)
 		elseif cmd == "TX_SETMASTER" then
 			SOTA_HandleTXMaster(message, senderName)		
 		elseif cmd == "TX_JOINQUEUE" then
@@ -1365,13 +1366,13 @@ function SOTA_OnLoad()
 		SOTA_Synchronize();
 	end
 	
-	if not SOTA_CONFIG_VersionNumber then
-		SOTA_CONFIG_VersionNumber = 1;
-	end;
-	if not SOTA_CONFIG_VersionDate then
-		SOTA_CONFIG_VersionDate = SOTA_GetDateTimestamp();
-	end;
-	SOTA_CONFIG_Modified = false;
+--	if not SOTA_CONFIG_VersionNumber then
+--		SOTA_CONFIG_VersionNumber = 1;
+--	end;
+--	if not SOTA_CONFIG_VersionDate then
+--		SOTA_CONFIG_VersionDate = SOTA_GetDateTimestamp();
+--	end;
+--	SOTA_CONFIG_Modified = false;
 
 	SOTA_InitializeTextElements();
 end

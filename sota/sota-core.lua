@@ -124,8 +124,8 @@ SOTA_CONFIG_AllowPlayerPass     = 1;	-- 0: No pass, 1: can pass latest bid
 SOTA_CONFIG_DisableDashboard	= 0;	-- Disable Dashboard in UI (hide it)
 SOTA_CONFIG_OutputChannel		= WARN_CHANNEL;
 SOTA_CONFIG_Messages			= { }	-- Contains configurable raid messages (if any)
-SOTA_CONFIG_VersionNumber		= nil;	-- Increases for every change!
-SOTA_CONFIG_VersionDate			= nil;	-- Date of last change!
+--SOTA_CONFIG_VersionNumber		= nil;	-- Increases for every change!
+--SOTA_CONFIG_VersionDate			= nil;	-- Date of last change!
 
 
 -- Pane 2:

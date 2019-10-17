@@ -321,12 +321,36 @@ function SOTA_InitializeConfigSettings()
 		SOTA_HISTORY_DKP = { };
 	end
 
-	
-	_G["FrameConfigBiddingMSoverOSPriority"]:SetChecked(SOTA_CONFIG_EnableOSBidding);
-	_G["FrameConfigBiddingEnableZonecheck"]:SetChecked(SOTA_CONFIG_EnableZoneCheck);
-	_G["FrameConfigBiddingEnableOnlinecheck"]:SetChecked(SOTA_CONFIG_EnableOnlineCheck);
-	_G["FrameConfigBiddingAllowPlayerPass"]:SetChecked(SOTA_CONFIG_AllowPlayerPass);
-	_G["FrameConfigBiddingDisableDashboard"]:SetChecked(SOTA_CONFIG_DisableDashboard);
+
+	if SOTA_CONFIG_EnableOSBidding == 1 then
+		_G["FrameConfigBiddingMSoverOSPriority"]:SetChecked(1);
+	else
+		_G["FrameConfigBiddingMSoverOSPriority"]:SetChecked();
+	end;
+
+	if SOTA_CONFIG_EnableZoneCheck == 1 then
+		_G["FrameConfigBiddingEnableZonecheck"]:SetChecked(1);
+	else
+		_G["FrameConfigBiddingEnableZonecheck"]:SetChecked();
+	end;
+
+	if SOTA_CONFIG_EnableOnlineCheck == 1 then
+		_G["FrameConfigBiddingEnableOnlinecheck"]:SetChecked(1);
+	else
+		_G["FrameConfigBiddingEnableOnlinecheck"]:SetChecked();
+	end;
+
+	if SOTA_CONFIG_AllowPlayerPass == 1 then
+		_G["FrameConfigBiddingAllowPlayerPass"]:SetChecked(1);
+	else
+		_G["FrameConfigBiddingAllowPlayerPass"]:SetChecked();
+	end;
+
+	if SOTA_CONFIG_DisableDashboard == 1 then
+		_G["FrameConfigBiddingDisableDashboard"]:SetChecked(1);
+	else
+		_G["FrameConfigBiddingDisableDashboard"]:SetChecked();
+	end;
 
 	if SOTA_CONFIG_UseGuildNotes == 1 then
 		_G["FrameConfigMiscDkpPublicNotes"]:SetChecked(1)
