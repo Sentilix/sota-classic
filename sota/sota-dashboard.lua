@@ -110,6 +110,8 @@ GuildDKP            SOTA /command       SOTA !command       SOTA /w command     
 -                   /SOTA master        -                   -                   Force player to become Master (if he is raid leader or assistant)
 -                   /SOTA clear         -                   -                   Clears the local history log (not the shared log).
 
+-                   /SOTA exportdkp     -                   -                   Copies current guild DKP to the internal clipboard for easy export
+
 /gdhelp             /SOTA help          -                   -                   Show HELP page (more or less this page!)
 ]]
 
@@ -204,6 +206,13 @@ function SOTA_HandleSOTACommand(msg)
 		end
 		return;
 	end
+
+	--	Command: exportdkp
+	--	Syntax: "exportdkp"
+	if (cmd == "exportdkp") then
+		return SOTA_OpenClipboard();
+	end
+
 
 	--	Command: clearhistory
 	--	Syntax: "clear", "clearhistory"

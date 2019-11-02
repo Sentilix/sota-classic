@@ -462,6 +462,11 @@ function SOTA_OnGuildRosterUpdate()
 end
 
 
+function SOTA_GetGuildRosterTable()
+	return GuildRosterTable;
+end;
+
+
 --[[
 --	Update the guild roster status cache: members and DKP.
 --	Used to display DKP values for non-raiding members

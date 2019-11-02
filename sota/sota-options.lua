@@ -101,13 +101,8 @@ function SOTA_UpdateFramePos(frame)
 	if(framename ~= "FrameConfigMessage") then
 		FrameConfigMessage:SetAllPoints(frame);
 	end
-	if(framename ~= "FrameConfigBidRules") then
-		FrameConfigBidRules:SetAllPoints(frame);
-	end
-	if(framename ~= "FrameConfigSyncCfg") then
-		FrameConfigSyncCfg:SetAllPoints(frame);
-	end
 end;
+
 
 function SOTA_OpenConfigurationUI()
 	ConfigurationDialogOpen = true;
@@ -127,12 +122,6 @@ function SOTA_CloseAllConfig()
 	FrameConfigBossDkp:Hide();
 	FrameConfigMiscDkp:Hide();
 	FrameConfigMessage:Hide();
-	FrameConfigBidRules:Hide();
-	FrameConfigSyncCfg:Hide();
-end;
-
-function SOTA_SaveRules_OnClick()
-	SOTA_CONFIG_BIDRULES = SOTA_GetBidRules();
 end;
 
 function SOTA_ToggleConfigurationUI()
@@ -163,17 +152,86 @@ function SOTA_OpenMessageConfig()
 	FrameConfigMessage:Show();
 end
 
-function SOTA_OpenBidRulesConfig()
-	SOTA_SetBidRules();
-	SOTA_CloseAllConfig();
-	FrameConfigBidRules:Show();
+function SOTA_OpenClipboard()
+	local n, msg, ginfo;
+
+	local roster = SOTA_GetGuildRosterTable();
+	if not roster then
+		return;
+	end;
+
+	local backdrop = {
+		bgFile = "Interface/BUTTONS/WHITE8X8",
+		edgeFile = "Interface/GLUES/Common/Glue-Tooltip-Border",
+		tile = true,
+		edgeSize = 8,
+		tileSize = 8,
+		insets = {
+			left = 5,
+			right = 5,
+			top = 5,
+			bottom = 5,
+		},
+	};
+
+	local frame = CreateFrame("Frame", "MyScrollMessageTextFrame", UIParent)
+	frame:SetSize(300, 250)
+	frame:SetPoint("CENTER")
+	frame:SetFrameStrata("BACKGROUND")
+	frame:SetBackdrop(backdrop)
+	frame:SetBackdropColor(0, 0, 0)
+	frame.Close = CreateFrame("Button", "$parentClose", frame)
+	frame.Close:SetSize(24, 24)
+	frame.Close:SetPoint("TOPRIGHT")
+	frame.Close:SetNormalTexture("Interface/Buttons/UI-Panel-MinimizeButton-Up")
+	frame.Close:SetPushedTexture("Interface/Buttons/UI-Panel-MinimizeButton-Down")
+	frame.Close:SetHighlightTexture("Interface/Buttons/UI-Panel-MinimizeButton-Highlight", "ADD")
+	frame.Close:SetScript("OnClick", function(self)
+		self:GetParent():Hide()
+	end);
+	frame.Select = CreateFrame("Button", "$parentSelect", frame, "UIPanelButtonTemplate")
+	frame.Select:SetSize(64, 14)
+	frame.Select:SetPoint("RIGHT", frame.Close, "LEFT")
+	frame.Select:SetText("Mark All")
+	frame.Select:SetScript("OnClick", function(self)
+		self:GetParent().Text:HighlightText() -- parameters (start, end) or default all
+		self:GetParent().Text:SetFocus()
+	end)
+
+	frame.SF = CreateFrame("ScrollFrame", "$parent_DF", frame, "UIPanelScrollFrameTemplate")
+	frame.SF:SetPoint("TOPLEFT", frame, 12, -30)
+	frame.SF:SetPoint("BOTTOMRIGHT", frame, -30, 10)
+	frame.Text = CreateFrame("EditBox", nil, frame)
+	frame.Text:SetMultiLine(true)
+	frame.Text:SetSize(280, 220)
+	frame.Text:SetPoint("TOPLEFT", frame.SF)
+	frame.Text:SetPoint("BOTTOMRIGHT", frame.SF)
+	frame.Text:SetMaxLetters(99999)
+	frame.Text:SetFontObject(GameFontNormal)
+	frame.Text:SetAutoFocus(false)
+	frame.Text:SetScript("OnEscapePressed", function(self) self:ClearFocus() end) 
+	frame.SF:SetScrollChild(frame.Text)
+
+
+	-- { Name, DKP, Class, Rank(text), Online, Zone, Rank(value) }
+	for n=1,table.getn(roster),1 do
+		ginfo = roster[n];
+		msg = string.format("%s,%d,%s,%s\r\n", ginfo[1], ginfo[2], ginfo[3], ginfo[4]);
+		frame.Text:Insert(msg);
+	end;
 end;
 
-function SOTA_OpenSyncCfgConfig()
-	SOTA_CloseAllConfig();
-	SOTA_RequestUpdateConfigVersion();
-	FrameConfigSyncCfg:Show();
-end;
+--function SOTA_OpenBidRulesConfig()
+--	SOTA_SetBidRules();
+--	SOTA_CloseAllConfig();
+--	FrameConfigBidRules:Show();
+--end;
+
+--function SOTA_OpenSyncCfgConfig()
+--	SOTA_CloseAllConfig();
+--	SOTA_RequestUpdateConfigVersion();
+--	FrameConfigSyncCfg:Show();
+--end;
 
 function SOTA_OnOptionAuctionTimeChanged(object)
 	local value = math.floor(object:GetValue());
@@ -195,7 +253,6 @@ function SOTA_OnOptionAuctionExtensionChanged(object)
 	object:SetValueStep(1);
 	object:SetValue(value);
 
---	SOTA_CONFIG_AuctionExtension = tonumber( _G[object:GetName()]:GetValue() );
 	SOTA_CONFIG_AuctionExtension = value;
 	
 	local valueString = "".. SOTA_CONFIG_AuctionExtension;
