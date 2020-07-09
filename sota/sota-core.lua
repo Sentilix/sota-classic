@@ -319,7 +319,12 @@ function SOTA_GetRaidRank(nameAndRealm)
 end
 
 function SOTA_IsInRaid(silentMode)
+	if not IsInRaid() then
+		return false;
+	end;
+
 	local result = ( GetNumGroupMembers() > 0 )
+
 	if not silentMode and not result then
 		localEcho("You must be in a raid!");
 	end
