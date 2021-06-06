@@ -2,7 +2,7 @@
 	<Script file="sota-core.lua" />
 
 	<!-- SotA Window Frame template -->
-	<Frame name="SOTAFrame" parent="UIParent" toplevel="true" hidden="true" virtual="true">
+	<Frame name="SOTAFrame" parent="UIParent" inherits="BackdropTemplate" toplevel="true" hidden="true" virtual="true">
 		<Size>
 			<AbsDimension x="384" y="512" />
 		</Size>

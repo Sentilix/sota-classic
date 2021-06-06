@@ -160,26 +160,26 @@ function SOTA_OpenClipboard()
 		return;
 	end;
 
-	local backdrop = {
-		bgFile = "Interface/BUTTONS/WHITE8X8",
-		edgeFile = "Interface/GLUES/Common/Glue-Tooltip-Border",
-		tile = true,
-		edgeSize = 8,
-		tileSize = 8,
-		insets = {
-			left = 5,
-			right = 5,
-			top = 5,
-			bottom = 5,
-		},
-	};
+	--local backdrop = {
+	--	bgFile = "Interface/BUTTONS/WHITE8X8",
+	--	edgeFile = "Interface/GLUES/Common/Glue-Tooltip-Border",
+	--	tile = true,
+	--	edgeSize = 8,
+	--	tileSize = 8,
+	--	insets = {
+	--		left = 5,
+	--		right = 5,
+	--		top = 5,
+	--		bottom = 5,
+	--	},
+	--};
 
 	local frame = CreateFrame("Frame", "MyScrollMessageTextFrame", UIParent)
 	frame:SetSize(300, 250)
 	frame:SetPoint("CENTER")
 	frame:SetFrameStrata("BACKGROUND")
-	frame:SetBackdrop(backdrop)
-	frame:SetBackdropColor(0, 0, 0)
+	--frame:SetBackdrop(backdrop)
+	--frame:SetBackdropColor(0, 0, 0)
 	frame.Close = CreateFrame("Button", "$parentClose", frame)
 	frame.Close:SetSize(24, 24)
 	frame.Close:SetPoint("TOPRIGHT")

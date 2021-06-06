@@ -2,7 +2,7 @@
 	<Script file="sota-dashboard.lua" />
 
 	<!-- SotA Dashboard -->
-	<Frame name="DashboardUIFrame" parent="UIParent" toplevel="true" hidden="true">
+	<Frame name="DashboardUIFrame" parent="UIParent" inherits="BackdropTemplate" toplevel="true" hidden="true">
 		<Size>
 			<AbsDimension x="296" y="80" />
 		</Size>

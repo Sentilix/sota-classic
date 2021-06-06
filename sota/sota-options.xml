@@ -1,9 +1,10 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
+
 	<Script file="sota-options.lua" />
 
 	<!-- Configuration frame template -->
 	<!-- Frame name="SOTA_ConfigurationFrameTemplate" parent="UIParent" toplevel="true" hidden="true" virtual="true" -->
-	<Frame name="SOTA_ConfigurationFrameTemplate" parent="UIParent" toplevel="true" hidden="true" virtual="true">
+	<Frame name="SOTA_ConfigurationFrameTemplate" inherits="BackdropTemplate" parent="UIParent" toplevel="true" hidden="true" virtual="true">
 		<Size>
 			<AbsDimension x="384" y="512" />
 		</Size>
@@ -215,7 +216,7 @@
 	</Frame>
 
 	<!-- Boss DKP slider (config element for Boss DKP)  -->
-	<Slider name="SOTA_BossDKPSlider" minValue="0" maxValue="10000" defaultValue="1000" valueStep="100" inherits="OptionsSliderTemplate" virtual="true" enableMouse="true">
+	<Slider name="SOTA_BossDKPSlider" minValue="0" maxValue="10000" defaultValue="1000" valueStep="100" inherits="OptionsSliderTemplate, BackdropTemplate" virtual="true" enableMouse="true">
 		<Size>
 			<AbsDimension x="300" y="14" />
 		</Size>
@@ -296,12 +297,11 @@
 		</NormalTexture>
 	</Button>
 
-
 	<!-- Configuration Frame 1.1: Bidding options -->
 	<!-- Auction Timer, nominal time -->
-	<Frame name="FrameConfigBidding" parent="UIParent" toplevel="true" hidden="true" inherits="SOTA_ConfigurationFrameTemplate">
+	<Frame name="FrameConfigBidding" parent="UIParent" toplevel="true" hidden="true" inherits="SOTA_ConfigurationFrameTemplate, BackdropTemplate">
 		<Frames>
-			<Slider name="$parentAuctionTime" minValue="0" maxValue="60" defaultValue="25" valueStep="1" inherits="OptionsSliderTemplate">
+			<Slider name="$parentAuctionTime" minValue="0" maxValue="60" defaultValue="25" valueStep="1" inherits="OptionsSliderTemplate, BackdropTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset x="64" y="-124"/>
@@ -310,6 +310,11 @@
 				<Size>
 					<AbsDimension x="250" y="14" />
 				</Size>
+				<KeyValues>
+					<KeyValue key="backdropInfo" value="BACKDROP_TOAST_12_12" type="global"/>
+					<KeyValue key="backdropColor" value="BLACK" type="global"/>
+					<KeyValue key="backdropBorderColor" value="WHITE" type="global"/>
+				</KeyValues>
 				<Scripts>
 					<OnLoad>
 						_G[self:GetName().."Low"]:SetText("0")
@@ -321,7 +326,7 @@
 				</Scripts>
 			</Slider>
 			<!-- Auction Extension time -->
-			<Slider name="$parentAuctionExtension" minValue="0" maxValue="20" defaultValue="8" valueStep="1" inherits="OptionsSliderTemplate">
+			<Slider name="$parentAuctionExtension" minValue="0" maxValue="20" defaultValue="8" valueStep="1" inherits="OptionsSliderTemplate, BackdropTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset x="64" y="-156"/>
@@ -598,7 +603,7 @@
 				</Scripts>
 			</CheckButton>
 			<!-- DKP String Length, options: 0-8 -->
-			<Slider name="$parentDKPStringLength" minValue="0" maxValue="8" defaultValue="5" valueStep="1" inherits="OptionsSliderTemplate">
+			<Slider name="$parentDKPStringLength" minValue="0" maxValue="8" defaultValue="5" valueStep="1" inherits="OptionsSliderTemplate, BackdropTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset x="64" y="-312"/>
@@ -618,7 +623,7 @@
 				</Scripts>
 			</Slider>
 			<!-- Minimum DKP Penalty, options: 0 - 1000, step 50 -->
-			<Slider name="$parentMinimumDKPPenalty" minValue="0" maxValue="1000" defaultValue="200" valueStep="25" inherits="OptionsSliderTemplate">
+			<Slider name="$parentMinimumDKPPenalty" minValue="0" maxValue="1000" defaultValue="200" valueStep="25" inherits="OptionsSliderTemplate, BackdropTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset x="64" y="-356"/>
@@ -645,7 +650,7 @@
 	<Frame name="FrameConfigMessage" parent="UIParent" toplevel="true" hidden="true" inherits="SOTA_ConfigurationFrameTemplate">
 		<Frames>
 			<!-- Message list frame -->
-			<ScrollFrame name="$parentTableList" inherits="FauxScrollFrameTemplate">
+			<ScrollFrame name="$parentTableList" inherits="FauxScrollFrameTemplate, BackdropTemplate">
 				<Size>
 					<AbsDimension x="286" y="250"/>
 				</Size>
@@ -656,14 +661,19 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
-					<EdgeSize>
-						<AbsValue val="16"/>
-					</EdgeSize>
-					<TileSize>
-						<AbsValue val="16"/>
-					</TileSize>
-				</Backdrop>
+				<KeyValues>
+					<KeyValue key="backdropInfo" value="BACKDROP_TOAST_12_12" type="global"/>
+					<KeyValue key="backdropColor" value="BLACK" type="global"/>
+					<KeyValue key="backdropBorderColor" value="WHITE" type="global"/>
+				</KeyValues>			
+				<!-- <Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true"> -->
+					<!-- <EdgeSize> -->
+						<!-- <AbsValue val="16"/> -->
+					<!-- </EdgeSize> -->
+					<!-- <TileSize> -->
+						<!-- <AbsValue val="16"/> -->
+					<!-- </TileSize> -->
+				<!-- </Backdrop> -->
 				<Scripts>
 					<OnVerticalScroll>
 						FauxScrollFrame_OnVerticalScroll(self, offset, 20, SOTA_UpdateTextList);
